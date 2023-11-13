@@ -1,0 +1,34 @@
+<div class="caixa mx-auto">
+    <h2 class="text-center">Cadastrar Item no Inventário</h2>
+
+    <form class="row g-3 my-4">
+    <!-- <form class="row g-3 mx-auto" [formGroup]="null" (ngSubmit)="onSubmit()"> -->
+        <div class="col-md-8 mb-3">
+          <label for="inputNome" class="form-label">Nome</label>
+          <input type="text" class="form-control" id="inputNome">
+        </div>
+        <div class="col-md-8 mb-3">
+          <label for="inputQtd" class="form-label">Quantidade</label>
+          <input type="number" class="form-control" id="inputQtd" min="1">
+        </div>
+        <div class="col-md-8 mb-3">
+          <label for="inputValor" class="form-label">Valor</label>
+          <input type="number" class="form-control" id="inputValor" min="0">
+        </div>
+        <div class="col-md-8 mb-3">
+            <select class="form-select" aria-label="Selecionar categoria">
+                <option selected>Selecione a categoria</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="col-md-8 mb-3">
+            <label for="inputDescricao" class="form-label">Descrição</label>
+            <textarea class="form-control" aria-label="inputDescricao" maxlength="10"></textarea>
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+</div>

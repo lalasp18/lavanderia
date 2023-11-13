@@ -1,0 +1,33 @@
+.footer{
+    .footer-left{
+        p{
+            font-size: .8rem;
+        }
+        .fab{
+            font-size: 1.3rem;
+            color: #38B6FF;
+        }
+    }
+    .footer-right{
+        li{
+            color: white;
+            font-size: .738rem;
+        }
+        .list-group .list-group-item{
+            border: 0;
+        }
+        .fas{
+            color: #38B6FF;
+        }
+    }
+    
+    a{
+        color: #38B6FF;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    a:hover{
+        color: #38B6FF;
+        text-decoration: underline;
+    }
+}
