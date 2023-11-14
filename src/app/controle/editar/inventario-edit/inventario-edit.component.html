@@ -1,1 +1,36 @@
-<p>inventario-edit works!</p>
+<div class="caixa mx-auto">
+    <h2 class="text-center">Editar Item do Inventário</h2>
+
+    <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <form class="row g-3 my-4" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="col-md-8 mb-3">
+          <label for="inputNome" class="form-label">Nome</label>
+          <input type="text" class="form-control" formControlName="nome" id="inputNome">
+        </div>
+        <div class="col-md-8 mb-3">
+          <label for="inputQtd" class="form-label">Quantidade</label>
+          <input type="number" class="form-control" formControlName="quantidade" id="inputQtd" min="1">
+        </div>
+        <div class="col-md-8 mb-3">
+          <label for="inputValor" class="form-label">Valor</label>
+          <input type="number" class="form-control" formControlName="valor" id="inputValor" min="0">
+        </div>
+        <div class="col-md-8 mb-3">
+            <select id="selectTitulo" class="form-select" formControlName="categoria" aria-label="Selecionar categoria">
+                <option>Selecione a categoria</option>
+                <option *ngFor="let cat of opt" [value]="cat.id">{{ cat.nome }}</option>
+            </select>
+        </div>
+        <div class="col-md-8 mb-3">
+            <label for="inputDescricao" class="form-label">Descrição</label>
+            <textarea class="form-control" formControlName="descricao" aria-label="inputDescricao" maxlength="10"></textarea>
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-warning me-4">Salvar</button>
+        </div>
+      </form>
+</div>

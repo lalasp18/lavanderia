@@ -6,17 +6,17 @@ import { InventarioEditComponent } from 'src/app/controle/editar/inventario-edit
 
 
 const routes: Routes = [
-  { path: 'api/item/criar', redirectTo: 'cadastrar/item', pathMatch: 'full' },
+  { path: 'api/inventario/criar', redirectTo: 'cadastrar/inventario', pathMatch: 'full' },
   {
-    path: 'cadastrar/item',
+    path: 'cadastrar/inventario',
     component: InventarioComponent,
     // canActivate: [AuthGuard],
     // canDeactivate: [FormDeactivateGuard] 
   },
   { path: 'listar/itens', component: InventariosComponent },
 
-  { path: 'api/item/listar/:id', redirectTo: 'editar/item/:id', pathMatch: 'full' },
-  { path: 'editar/item/:id', component: InventarioEditComponent }
+  { path: 'api/inventario/listar/:id', redirectTo: 'editar/inventario/:id', pathMatch: 'full' },
+  { path: 'editar/inventario/:id', component: InventarioEditComponent }
 ];
 
 @NgModule({

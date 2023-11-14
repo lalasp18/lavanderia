@@ -1,35 +1,35 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Item } from 'src/app/models/item.models';
+import { Inventario } from 'src/app/models/inventario.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioService {
 
-  private readonly API = '/api/item';
+  private readonly API = '/api/inventario';
 
   constructor(private http: HttpClient) { }
 
-  salvarInventario(record: Item[]): Observable<Object> {
+  salvarInventario(record: Inventario[]): Observable<Object> {
     return this.http.post(`${this.API}/criar`, record);
   }
 
-  editarInventario(record: Item[]): Observable<Object> {
+  editarInventario(record: Inventario[]): Observable<Object> {
     return this.http.put(`${this.API}/editar`, record);
   }
 
-  listarInventario(): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.API}/listar`);
+  listarInventario(): Observable<Inventario[]> {
+    return this.http.get<Inventario[]>(`${this.API}/listar`);
   }
 
-  pegarIdInventario(idItem: number): Observable<Item> {
-    return this.http.get<Item>(`${this.API}/listar/${idItem}`);
+  pegarIdInventario(id: number): Observable<Inventario> {
+    return this.http.get<Inventario>(`${this.API}/listar/${id}`);
   }
 
-  deletarInventario(idItem: number): Observable<Object> {
-    return this.http.delete(`${this.API}/deletar/${idItem}`);
+  deletarInventario(id: number): Observable<Object> {
+    return this.http.delete(`${this.API}/deletar/${id}`);
   }
 }
 
