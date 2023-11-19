@@ -19,7 +19,7 @@
     </div>
     </div>
 
-    <!-- <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4" *ngIf="inventarioData.length > 0">
+    <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4" *ngIf="inventarioData.length > 0">
       <div class="card col me-4 mb-2" style="width: 18rem;" *ngFor="let itens of inventarioData; index as i">
         <div class="card-body">
           <h5 class="card-title">{{ itens.nome}}</h5>
@@ -31,7 +31,7 @@
           <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(itens.id, itens.nome)">Deletar</button>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden)="limparIdParaDeletar()">
       <div class="modal-dialog modal-dialog-centered">

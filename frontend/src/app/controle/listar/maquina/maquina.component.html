@@ -5,29 +5,18 @@
       {{ message }}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4">
-    <div class="card col me-4 mb-2" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Nome</h5>
-        <p class="card-text">Tipo: tipo</p>
-        <p class="card-text">Valor: valor</p>
-        <a class="btn btn-warning me-2" (click)="editarID(0)">Editar</a>
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(0, 'nome')">Deletar</button>
-      </div>
-    </div>
-    </div>
 
-    <!-- <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4" *ngIf="maquinas.length > 0">
+    <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4" *ngIf="maquinas.length > 0">
       <div class="card col me-4 mb-2" style="width: 18rem;" *ngFor="let maquina of maquinas; index as i">
         <div class="card-body">
           <h5 class="card-title">{{ maquina.nome}}</h5>
           <p class="card-text">Tipo: {{ maquina.tipo}}</p>
           <p class="card-text">Valor: {{ maquina.valor}}</p>
-          <a class="btn btn-warning me-2" (click)="editarID(itens.id)">Editar</a>
-          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(itens.id, itens.nome)">Deletar</button>
+          <a class="btn btn-warning me-2" (click)="editarID(maquina.id)">Editar</a>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(maquina.id, maquina.nome)">Deletar</button>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden)="limparIdParaDeletar()">
       <div class="modal-dialog modal-dialog-centered">

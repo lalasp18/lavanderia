@@ -8,28 +8,28 @@ import { Maquina } from 'src/app/models/maquina.models';
 })
 export class MaquinaService {
 
-  private readonly API = '/api/maquina';
+  private readonly API = 'api/maquina';
 
   constructor(private http: HttpClient) { }
 
   salvarMaquina(record: Maquina[]): Observable<Object> {
-    return this.http.post(`${this.API}/criar`, record);
+    return this.http.post(`${this.API}`, record);
   }
 
   editarMaquina(record: Maquina[]): Observable<Object> {
-    return this.http.put(`${this.API}/editar`, record);
+    return this.http.put(`${this.API}`, record);
   }
 
   listarMaquina(): Observable<Maquina[]> {
-    return this.http.get<Maquina[]>(`${this.API}/listar`);
+    return this.http.get<Maquina[]>(`${this.API}`);
   }
 
   pegarIdMaquina(id: number): Observable<Maquina> {
-    return this.http.get<Maquina>(`${this.API}/listar/${id}`);
+    return this.http.get<Maquina>(`${this.API}/${id}`);
   }
 
   deletarMaquina(id: number): Observable<Object> {
-    return this.http.delete(`${this.API}/deletar/${id}`);
+    return this.http.delete(`${this.API}/${id}`);
   }
 }
 
