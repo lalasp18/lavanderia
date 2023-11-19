@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavHeaderComponent } from './nav-header/nav-header.component';
 import { FooterComponent } from './footer/footer.component';
+import { MaquinaModule } from './controle/criar/maquina/routing/maquina.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FooterComponent } from './footer/footer.component';
     RouterModule,
     NgbModule,
 
-    InventarioModule
+    InventarioModule,
+    MaquinaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
