@@ -3,6 +3,8 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap/scss/mixins';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
 @font-face {
     font-family: Montserrat-Arabic;
     src: url(assets/fonts/Montserrat-Arabic-Regular-400.otf);
