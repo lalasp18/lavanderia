@@ -31,6 +31,14 @@ export class MaquinaListaComponent implements OnInit, OnDestroy {
         next: (maquinas: any) => {
           const data = maquinas;
           this.maquinas = data;
+          if(this.maquinas.length <= 0) {
+            this.mostrarAlert = true;
+            this.tipoAlert = "warning";
+            this.message = "Nenhuma máquina encontrada.";
+            setTimeout(() => {
+              this.mostrarAlert = false;
+            }, 10000);
+          }
         },
         error: (err: any) => {
           this.mostrarAlert = true;

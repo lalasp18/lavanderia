@@ -31,6 +31,14 @@ export class InventariosComponent implements OnInit, OnDestroy {
         next: (itens: any) => {
           const data = itens;
           this.inventarioData = data;
+          if(this.inventarioData.length <= 0) {
+            this.mostrarAlert = true;
+            this.tipoAlert = "warning";
+            this.message = "Nenhum inventário encontrado.";
+            setTimeout(() => {
+              this.mostrarAlert = false;
+            }, 10000);
+          }
         },
         error: (err: any) => {
           this.mostrarAlert = true;

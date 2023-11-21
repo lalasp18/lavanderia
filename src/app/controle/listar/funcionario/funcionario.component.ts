@@ -31,6 +31,14 @@ export class FuncionarioListaComponent implements OnInit, OnDestroy {
         next: (funcionarios: any) => {
           const data = funcionarios;
           this.funcionarios = data;
+          if(this.funcionarios.length <= 0) {
+            this.mostrarAlert = true;
+            this.tipoAlert = "warning";
+            this.message = "Nenhum funcionário encontrado.";
+            setTimeout(() => {
+              this.mostrarAlert = false;
+            }, 10000);
+          }
         },
         error: (err: any) => {
           this.mostrarAlert = true;
