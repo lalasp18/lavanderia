@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavHeaderComponent } from './nav-header/nav-header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MaquinaModule } from './controle/criar/maquina/routing/maquina.module';
+import { FuncionarioModule } from './controle/criar/funcionario/routing/funcionario.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MaquinaModule } from './controle/criar/maquina/routing/maquina.module';
     NgbModule,
 
     InventarioModule,
-    MaquinaModule
+    MaquinaModule,
+    FuncionarioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
