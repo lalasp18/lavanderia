@@ -1,0 +1,29 @@
+<div class="caixa mx-auto">
+    <h2 class="text-center">Editar Máquina</h2>
+
+    <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <form class="row g-3 my-4" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="col-md-8 mb-3">
+          <label for="inputNome" class="form-label">Nome</label>
+          <input type="text" class="form-control" formControlName="nome" id="inputNome">
+        </div>
+        <div class="col-md-8 mb-3">
+          <label for="inputTipo" class="form-label">Tipo</label>
+          <select id="selectMaquina" class="form-select" formControlName="tipo" aria-label="Selecionar o tipo">
+              <option>Selecione o tipo</option>
+              <option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.nome }}</option>
+          </select>
+      </div>
+        <div class="col-md-8 mb-3">
+          <label for="inputValor" class="form-label">Valor</label>
+          <input type="number" class="form-control" formControlName="valor" id="inputValor" min="0">
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-warning me-4">Salvar</button>
+        </div>
+      </form>
+</div>

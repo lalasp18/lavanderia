@@ -1,0 +1,93 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FuncionarioService } from './service/funcionario.service';
+import { Funcionario } from 'src/app/models/funcionario.models';
+
+@Component({
+  selector: 'app-funcionario',
+  templateUrl: './funcionario.component.html',
+  styleUrls: ['./funcionario.component.scss'],
+})
+export class FuncionarioComponent implements OnInit {
+  funcionario: Funcionario[] = [];
+  formulario: FormGroup;
+
+  mostrarAlert: boolean = false;
+  message: string = '';
+  tipoAlert: string = '';
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private funcionarioService: FuncionarioService
+  ) {
+    this.formulario = this.formBuilder.group({
+      id: [null],
+      nome: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(150),
+        ],
+      ],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.email,
+        ],
+      ],
+      cargo: [null, [Validators.required]],
+      senha: [null, [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  ngOnInit() { }
+
+  enviarForm() {
+    this.funcionarioService.salvarFuncionario(this.funcionario).subscribe({
+      next: (data: any) => {
+        this.funcionario = data;
+        this.goToRoute();
+        this.formulario.reset();
+        this.mostrarAlert = true;
+        this.tipoAlert = 'info';
+        this.message = 'Funcionário cadastrado com sucesso!';
+        setTimeout(() => {
+          this.mostrarAlert = false;
+        }, 5000);
+      },
+      error: (err: any) => {
+        this.mostrarAlert = true;
+        this.tipoAlert = 'danger';
+        this.message = 'Cadastro não enviado.';
+        setTimeout(() => {
+          this.mostrarAlert = false;
+        }, 5000);
+      },
+    });
+  }
+
+  goToRoute() {
+    this.router.navigate(['api/funcionario/criar']);
+  }
+
+  onSubmit() {
+    console.log(this.formulario.value);
+    if (this.formulario.valid) {
+      this.funcionario = this.formulario.value;
+      this.enviarForm();
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, 0);
+      this.mostrarAlert = true;
+      this.tipoAlert = 'warning';
+      this.message = 'Informação inválida. Preencha os campos!';
+      setTimeout(() => {
+        this.mostrarAlert = false;
+      }, 5000);
+    }
+  }
+}

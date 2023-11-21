@@ -1,0 +1,43 @@
+<div class="caixa mx-auto">
+    <h2 class="text-center">Lista de Itens</h2>
+
+    <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4" *ngIf="inventarioData.length > 0">
+      <div class="card col me-4 mb-2" style="width: 18rem;" *ngFor="let itens of inventarioData; index as i">
+        <div class="card-body">
+          <h5 class="card-title">{{ itens.nome}}</h5>
+          <p class="card-text">Quantidade total: {{ itens.quantidade}}</p>
+          <p class="card-text">Preço: {{ itens.valor}}</p>
+          <p class="card-text">Categoria: {{ itens.categoria}}</p>
+          <p class="card-text">Descrição: {{ itens.descricao}}</p>
+          <a class="btn btn-warning me-2" (click)="editarID(itens.id)">Editar</a>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(itens.id, itens.nome)">Deletar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden)="limparIdParaDeletar()">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a excluir este item: <br> {{ itemParaDeletarNome }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <h3 id="modalAlert">Esta ação é irreversível.</h3>
+            <p>Você deseja continuar?</p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deletarID(itemParaDeletarId)">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
