@@ -63,18 +63,18 @@ export class MaquinaListaComponent implements OnInit, OnDestroy {
 
   deletarID(id: number) {
     this.maquinaService.deletarMaquina(id)
-    .subscribe({
-      next: (maquinas: any) => {
-        this.ngOnInit();
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = "danger";
-        this.message = "Não foi possível deletar a máquina.";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 10000);
-      }
+    .subscribe(maquinas => {
+      this.ngOnInit();
+      window.location.reload();
+      //,
+      // error: (err: any) => {
+      //   this.mostrarAlert = true;
+      //   this.tipoAlert = "danger";
+      //   this.message = "Não foi possível deletar a máquina.";
+      //   setTimeout(() => {
+      //     this.mostrarAlert = false;
+      //   }, 10000);
+      // }
     });
   }
 }
