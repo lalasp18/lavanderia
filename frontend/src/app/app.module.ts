@@ -13,6 +13,7 @@ import { NavHeaderComponent } from './nav-header/nav-header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MaquinaModule } from './controle/criar/maquina/routing/maquina.module';
 import { FuncionarioModule } from './controle/criar/funcionario/routing/funcionario.module';
+import { ClienteModule } from './controle/criar/cliente/routing/cliente.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FuncionarioModule } from './controle/criar/funcionario/routing/funciona
 
     InventarioModule,
     MaquinaModule,
-    FuncionarioModule
+    FuncionarioModule,
+    ClienteModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
