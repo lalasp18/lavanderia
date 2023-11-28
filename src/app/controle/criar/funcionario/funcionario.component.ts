@@ -12,6 +12,8 @@ import { Funcionario } from 'src/app/models/funcionario.models';
 export class FuncionarioComponent implements OnInit {
   funcionario: Funcionario[] = [];
   formulario: FormGroup;
+  senhaVisivel: boolean = false;
+  complexidadeSenha: number = 0;
 
   mostrarAlert: boolean = false;
   message: string = '';
@@ -41,6 +43,9 @@ export class FuncionarioComponent implements OnInit {
       ],
       cargo: [null, [Validators.required]],
       senha: [null, [Validators.required, Validators.minLength(6)]],
+    });
+    this.formulario.get('senha')?.valueChanges.subscribe((novaSenha) => {
+      this.calcularComplexidadeSenha(novaSenha);
     });
   }
 
@@ -89,5 +94,32 @@ export class FuncionarioComponent implements OnInit {
         this.mostrarAlert = false;
       }, 5000);
     }
+  }
+
+  toggleSenhaVisibility() {
+    this.senhaVisivel = !this.senhaVisivel;
+    const senhaInput = document.getElementById('inputSenha') as HTMLInputElement;
+
+    if (this.senhaVisivel) {
+      senhaInput.type = 'text';
+    } else {
+      senhaInput.type = 'password';
+    }
+  }
+
+  calcularComplexidadeSenha(senha: string) {
+    let complexidade = 0;
+
+    complexidade += Math.min(senha.length * 4, 50);
+    const caracteresEspeciais = /[!@#$%^&*(),.?":{}|<>]/;
+    if (caracteresEspeciais.test(senha)) {
+      complexidade += 60;
+    }
+    const letrasMaiusculas = /[A-Z]/g;
+    const matchLetrasMaiusculas = senha.match(letrasMaiusculas);
+    if (matchLetrasMaiusculas) {
+      complexidade += Math.min(matchLetrasMaiusculas.length * 2, 60);
+    }
+    this.complexidadeSenha = Math.min(complexidade, 100);
   }
 }

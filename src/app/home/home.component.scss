@@ -1,11 +1,13 @@
 .fundo_caixa{
     height: 100%;
-    background-image: url(/assets/fundo.png);
-    background-size: cover; /* Para cobrir todo o tamanho do body */
-  background-repeat: no-repeat;
+    width: 100%;
+    // background-image: url(/assets/fundo.png);
+    // background-size: cover; /* Para cobrir todo o tamanho do body */
+  // background-repeat: no-repeat;
     
     .caixa{
-        color: black;
+        // color: black;
+        color: white;
         width: 80%;
     }
 }

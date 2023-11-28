@@ -12,7 +12,10 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="listar/itens" [attr.aria-current]="isCurrent('/listar/itens') ? 'page' : null">Inventário</a>
+            <a class="nav-link" routerLink="listar/atendimentos">Atendimentos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="listar/itens">Inventário</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="listar/maquina">Máquina</a>
@@ -28,6 +31,7 @@
               <li><a class="dropdown-item" routerLink="cadastrar/inventario">Inventário</a></li>
               <li><a class="dropdown-item" routerLink="cadastrar/funcionario">Funcionário</a></li>
               <li><a class="dropdown-item" routerLink="cadastrar/maquina">Máquina</a></li>
+              <li><a class="dropdown-item" routerLink="cadastrar/atendimento">Atendimento</a></li>
             </ul>
           </li>
         </ul>

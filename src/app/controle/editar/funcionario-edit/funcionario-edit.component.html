@@ -24,7 +24,33 @@
     </div>
     <div class="col-md-8 mb-3">
       <label for="inputSenha" class="form-label">Senha</label>
-      <input type="password" class="form-control" formControlName="senha" id="inputSenha">
+      <div class="input-group">
+        <input type="{{ senhaVisivel ? 'text' : 'password' }}" class="form-control" formControlName="senha" id="inputSenha" />
+        <button type="button" class="btn btn-outline-secondary" (click)="toggleSenhaVisibility()"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Mostrar Senha">
+          <i class="bi bi-eye"></i>
+        </button>
+      </div>
+      <div class="progress mt-2">
+        <div
+          id="senhaComplexidadeBar"
+          class="progress-bar progress-bar-custom"
+          role="progressbar"
+          [ngClass]="{
+            'bg-danger': complexidadeSenha < 30,
+            'bg-warning': complexidadeSenha >= 30 && complexidadeSenha < 70,
+            'bg-success': complexidadeSenha >= 70
+          }"
+          [style.width]="complexidadeSenha + '%'"
+          [attr.aria-valuenow]="complexidadeSenha"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+      <div class="d-flex justify-content-between mt-2">
+        <span class="text-muted text-fraca-forte">Muito Fraca</span>
+        <span class="text-muted text-fraca-forte">Muito Forte</span>
+      </div>
     </div>
     <div class="col-md-12">
       <button type="submit" class="btn btn-warning me-4">Salvar</button>

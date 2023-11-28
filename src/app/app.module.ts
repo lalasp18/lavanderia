@@ -14,13 +14,14 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { MaquinaModule } from './controle/criar/maquina/routing/maquina.module';
 import { FuncionarioModule } from './controle/criar/funcionario/routing/funcionario.module';
+import { AtendimentoModule } from './controle/criar/atendimento/routing/atendimento.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavHeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,9 @@ import { FuncionarioModule } from './controle/criar/funcionario/routing/funciona
 
     InventarioModule,
     MaquinaModule,
-    FuncionarioModule
+    FuncionarioModule,
+
+    AtendimentoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,57 @@
+<div class="caixa mx-auto">
+    <h2 class="text-center">Lista de Atendimentos</h2>
+
+    <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- EXEMPLO -->
+    <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4">
+      <div class="card col me-4 mb-2" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">itens.cliente</h5>
+            <p class="card-text">Quantidade total: itens.valorTotal</p>
+            <p class="card-text">Máquinas: itens.maquinas</p>
+            <p class="card-text">Produtos: itens.produtos</p>
+            <p class="card-text">Fucionário responsável: itens.funcionario</p>
+            <a class="btn btn-warning me-2" (click)="editarID(0)">Editar</a>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(0)">Deletar</button>
+          </div>
+      </div>
+    </div>
+    <!-- <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4" *ngIf="atendimentoData.length > 0">
+      <div class="card col me-4 mb-2" style="width: 18rem;" *ngFor="let itens of atendimentoData; index as i">
+        <div class="card-body">
+          <h5 class="card-title">{{ itens.cliente}}</h5>
+          <p class="card-text">Quantidade total: {{ itens.valorTotal}}</p>
+          <p class="card-text">Máquinas: {{ itens.maquinas}}</p>
+          <p class="card-text">Produtos: {{ itens.produtos}}</p>
+          <p class="card-text">Fucionário responsável: {{ itens.funcionario}}</p>
+          <a class="btn btn-warning me-2" (click)="editarID(itens.id)">Editar</a>
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(itens.id)">Deletar</button>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden)="limparIdParaDeletar()">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Você está prestes a excluir este item.</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <h3 id="modalAlert">Esta ação é irreversível.</h3>
+            <p>Você deseja continuar?</p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deletarID(atendimentoParaDeletarId)">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

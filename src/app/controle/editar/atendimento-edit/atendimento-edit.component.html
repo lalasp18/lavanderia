@@ -1,0 +1,80 @@
+<div class="caixa mx-auto">
+    <h2 class="text-center">Realizar Atendimento</h2>
+
+    <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <form class="row g-3 my-4" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="col-md-8 mb-3">
+            <label class="form-label">Cliente a atender</label>
+            <select id="selectCliente" class="form-select" aria-label="Selecionar cliente" (change)="pegarCliente($event)">
+                <option selected>Selecione o cliente</option>
+                <option *ngFor="let cliente of clienteList" [value]="cliente.id">
+                    {{cliente.nome}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-8">
+            <label class="form-label">Status do pedido</label>
+            <select id="selectStatus" class="form-select" aria-label="Seleção de Status" disabled>
+                <option value="0" selected>A se iniciar</option>
+            </select>
+        </div>
+
+        <div class="col-md-8 mb-3">
+            <label class="form-label">Máquina(s) a utilizar</label>
+            <button class="btn btn-success col-12 dropdown-toggle" type="button" id="dropdownMaquina"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione as Máquinas...
+            </button>
+
+            <div class="dropdown-menu col-md-4" aria-labelledby="dropdownMaquina">
+                <div *ngFor="let maquina of maquinaList; index as i">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexMaquina{{i}}" (change)="pegarMaquina($event,maquina,i)">
+                    <label class="form-check-label me-3" for="flexMaquina{{i}}">
+                        {{maquina.nome}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 mb-3">
+            <label class="form-label">Produto(s) a utilizar</label>
+            <button class="btn btn-success col-12 dropdown-toggle" type="button" id="dropdownProduto"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione os Produtos...
+            </button>
+
+            <div class="dropdown-menu col-md-4" aria-labelledby="dropdownProduto">
+                <div *ngFor="let produto of produtoList; index as i">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexProduto{{i}}" (change)="pegarProduto($event,produto,i)">
+                    <label class="form-check-label me-3" for="flexProduto{{i}}">
+                        {{produto.nome}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <label class="form-label">Funcionário(a) responsável</label>
+            <select id="selectFuncionario" class="form-select" aria-label="Seleção de Funcionário" (change)="pegarFuncionario($event)">
+                <option selected>Selecione um(a) Funcionário(a)..</option>
+                <option *ngFor="let funcionario of funcionarioList" [value]="funcionario.id">
+                    {{funcionario.nome}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-8 mb-3">
+          <label for="inputValor" class="form-label">Valor Total</label>
+          <input type="number" class="form-control" formControlName="valorTotal" id="inputValor" [value]="orcamento" readonly>
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary me-4">Enviar</button>
+            <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
+        </div>
+      </form>
+</div>

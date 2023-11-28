@@ -16,6 +16,8 @@ export class FuncionarioEditComponent implements OnInit, OnDestroy {
   funcionario: Funcionario[] = [];
   formulario: FormGroup;
   unsubscribe$!: Subscription;
+  senhaVisivel: boolean = false;
+  complexidadeSenha: number = 0;
 
   mostrarAlert: boolean = false;
   message: string = "";
@@ -52,6 +54,9 @@ export class FuncionarioEditComponent implements OnInit, OnDestroy {
       email: [null, [Validators.required, Validators.email]],
       cargo: [null, [Validators.required]],
       senha: [null, [Validators.required, Validators.minLength(6)]],
+    });
+    this.formulario.get('senha')?.valueChanges.subscribe((novaSenha) => {
+      this.calcularComplexidadeSenha(novaSenha);
     });
   }
 
@@ -135,5 +140,32 @@ export class FuncionarioEditComponent implements OnInit, OnDestroy {
         this.mostrarAlert = false;
       }, 5000);
     }
+  }
+
+  toggleSenhaVisibility() {
+    this.senhaVisivel = !this.senhaVisivel;
+    const senhaInput = document.getElementById('inputSenha') as HTMLInputElement;
+
+    if (this.senhaVisivel) {
+      senhaInput.type = 'text';
+    } else {
+      senhaInput.type = 'password';
+    }
+  }
+
+  calcularComplexidadeSenha(senha: string) {
+    let complexidade = 0;
+
+    complexidade += Math.min(senha.length * 4, 50);
+    const caracteresEspeciais = /[!@#$%^&*(),.?":{}|<>]/;
+    if (caracteresEspeciais.test(senha)) {
+      complexidade += 60;
+    }
+    const letrasMaiusculas = /[A-Z]/g;
+    const matchLetrasMaiusculas = senha.match(letrasMaiusculas);
+    if (matchLetrasMaiusculas) {
+      complexidade += Math.min(matchLetrasMaiusculas.length * 2, 60);
+    }
+    this.complexidadeSenha = Math.min(complexidade, 100);
   }
 }
