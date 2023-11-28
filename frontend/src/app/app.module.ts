@@ -14,6 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MaquinaModule } from './controle/criar/maquina/routing/maquina.module';
 import { FuncionarioModule } from './controle/criar/funcionario/routing/funcionario.module';
 import { ClienteModule } from './controle/criar/cliente/routing/cliente.module';
+import { AtendimentoModule } from './controle/criar/atendimento/routing/atendimento.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ClienteModule } from './controle/criar/cliente/routing/cliente.module';
     MaquinaModule,
     FuncionarioModule,
     ClienteModule,
+    AtendimentoModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
