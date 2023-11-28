@@ -79,7 +79,7 @@ export class InventarioEditComponent implements OnInit {
           for (let i = 1; i < 6; i++) {
             if(this.inventarioID.categoria == this.opt[i].nome){
               const selectTitulo = document.getElementById('selectTitulo') as HTMLInputElement;
-              selectTitulo.value = this.opt[i].id.toString();
+              selectTitulo.value = this.opt[i].nome;
             }
           }
         },

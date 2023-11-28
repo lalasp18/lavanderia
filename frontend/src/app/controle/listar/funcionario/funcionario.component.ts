@@ -66,15 +66,16 @@ export class FuncionarioListaComponent implements OnInit, OnDestroy {
     .subscribe({
       next: (funcionarios: any) => {
         this.ngOnInit();
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = "danger";
-        this.message = "Não foi possível deletar o funcionário.";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 10000);
-      }
+        window.location.reload();
+      }//,
+      // error: (err: any) => {
+      //   this.mostrarAlert = true;
+      //   this.tipoAlert = "danger";
+      //   this.message = "Não foi possível deletar o funcionário.";
+      //   setTimeout(() => {
+      //     this.mostrarAlert = false;
+      //   }, 10000);
+      // }
     });
   }
 }
