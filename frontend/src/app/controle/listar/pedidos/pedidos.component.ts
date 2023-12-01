@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
-import { Atendimento } from "src/app/models/atendimento.models";
+import { Pedido } from "src/app/models/pedido.models";
 
 @Component({
-  selector: "app-atendimentos",
-  templateUrl: "./atendimentos.component.html",
-  styleUrls: ["./atendimentos.component.scss"]
+  selector: "app-pedidos",
+  templateUrl: "./pedidos.component.html",
+  styleUrls: ["./pedidos.component.scss"]
 })
-export class AtendimentosComponent implements OnInit, OnDestroy {
+export class PedidosComponent implements OnInit, OnDestroy {
 
-  atendimentoData: Atendimento[] = [];
+  pedidos: Pedido[]=[];
   unsubscribe$!: Subscription;
-  atendimentoParaDeletarId: number = -1;
+  pedidoParaDeletarId: number = -1;
   
   mostrarAlert: boolean = false;
   message: string = "";
@@ -28,8 +28,8 @@ export class AtendimentosComponent implements OnInit, OnDestroy {
     //   .subscribe({
     //     next: (itens: any) => {
     //       const data = itens;
-    //       this.atendimentoData = data;
-    //       if(this.atendimentoData.length <= 0) {
+    //       this.pedidoData = data;
+    //       if(this.pedidoData.length <= 0) {
     //         this.mostrarAlert = true;
     //         this.tipoAlert = "warning";
     //         this.message = "Nenhum inventário encontrado.";
@@ -44,7 +44,7 @@ export class AtendimentosComponent implements OnInit, OnDestroy {
     //       this.message = "Dados não encontrados.";
     //       setTimeout(() => {
     //         this.mostrarAlert = false;
-    //       }, 10000);
+    //       }, 5000);
     //     }
     // });
   }
@@ -54,15 +54,15 @@ export class AtendimentosComponent implements OnInit, OnDestroy {
   }
 
   editarID(id: number) {
-    this.router.navigate(["api/atendimento/listar", id]);
+    this.router.navigate(["api/pedido/listar", id]);
   }
 
   definirIdParaDeletar(id: number) {
-    this.atendimentoParaDeletarId = id;
+    this.pedidoParaDeletarId = id;
   }
 
   limparIdParaDeletar() {
-    this.atendimentoParaDeletarId = -1;
+    this.pedidoParaDeletarId = -1;
   }
 
   deletarID(id: number) {

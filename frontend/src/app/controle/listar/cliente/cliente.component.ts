@@ -39,7 +39,7 @@ export class ClienteListaComponent implements OnInit, OnDestroy {
           this.message = "Dados não encontrados.";
           setTimeout(() => {
             this.mostrarAlert = false;
-          }, 10000);
+          }, 5000);
         }
     });
   }

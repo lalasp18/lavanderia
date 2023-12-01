@@ -1,5 +1,5 @@
 <div class="caixa mx-auto">
-    <h2 class="text-center">Lista de Atendimentos</h2>
+    <h2 class="text-center">Lista de Pedidos</h2>
 
     <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
       {{ message }}
@@ -11,7 +11,7 @@
       <div class="card col me-4 mb-2" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">itens.cliente</h5>
-            <p class="card-text">Quantidade total: itens.valorTotal</p>
+            <p class="card-text">Preço: itens.valorTotal</p>
             <p class="card-text">Máquinas: itens.maquinas</p>
             <p class="card-text">Produtos: itens.produtos</p>
             <p class="card-text">Fucionário responsável: itens.funcionario</p>
@@ -24,7 +24,7 @@
       <div class="card col me-4 mb-2" style="width: 18rem;" *ngFor="let itens of atendimentoData; index as i">
         <div class="card-body">
           <h5 class="card-title">{{ itens.cliente}}</h5>
-          <p class="card-text">Quantidade total: {{ itens.valorTotal}}</p>
+          <p class="card-text">Preço: {{ itens.valorTota | currency:'BRL'l}}</p>
           <p class="card-text">Máquinas: {{ itens.maquinas}}</p>
           <p class="card-text">Produtos: {{ itens.produtos}}</p>
           <p class="card-text">Fucionário responsável: {{ itens.funcionario}}</p>
@@ -49,7 +49,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deletarID(atendimentoParaDeletarId)">Confirmar</button>
+            <button id="btn-confirmar-deleta" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deletarID(pedidoParaDeletarId)">Confirmar</button>
           </div>
         </div>
       </div>

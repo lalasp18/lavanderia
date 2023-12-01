@@ -11,7 +11,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ itens.nome}}</h5>
           <p class="card-text">Quantidade total: {{ itens.quantidade}}</p>
-          <p class="card-text">Preço: {{ itens.valor}}</p>
+          <p class="card-text">Preço: {{ itens.valor | currency:'BRL'}}</p>
           <p class="card-text">Categoria: {{ itens.categoria}}</p>
           <p class="card-text">Descrição: {{ itens.descricao}}</p>
           <a class="btn btn-warning me-2" (click)="editarID(itens.id)">Editar</a>

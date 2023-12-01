@@ -14,7 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MaquinaModule } from './controle/criar/maquina/routing/maquina.module';
 import { FuncionarioModule } from './controle/criar/funcionario/routing/funcionario.module';
 import { ClienteModule } from './controle/criar/cliente/routing/cliente.module';
-import { AtendimentoModule } from './controle/criar/atendimento/routing/atendimento.module';
+import { PedidoModule } from './controle/criar/pedido/routing/pedido.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { AtendimentoModule } from './controle/criar/atendimento/routing/atendime
     MaquinaModule,
     FuncionarioModule,
     ClienteModule,
-    AtendimentoModule,
+    PedidoModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

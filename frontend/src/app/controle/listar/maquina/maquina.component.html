@@ -11,7 +11,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ maquina.nome}}</h5>
           <p class="card-text">Tipo: {{ maquina.tipo}}</p>
-          <p class="card-text">Valor: {{ maquina.valor}}</p>
+          <p class="card-text">Valor: {{ maquina.valor | currency:'BRL'}}</p>
           <a class="btn btn-warning me-2" (click)="editarID(maquina.id)">Editar</a>
           <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(maquina.id, maquina.nome)">Deletar</button>
         </div>

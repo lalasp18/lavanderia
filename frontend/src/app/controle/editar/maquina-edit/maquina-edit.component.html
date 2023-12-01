@@ -15,7 +15,7 @@
           <label for="inputTipo" class="form-label">Tipo</label>
           <select id="selectMaquina" class="form-select" formControlName="tipo" aria-label="Selecionar o tipo">
               <option>Selecione o tipo</option>
-              <option *ngFor="let tipo of tipos" [value]="tipo.id">{{ tipo.nome }}</option>
+              <option *ngFor="let tipo of tipos" [value]="tipo.nome">{{ tipo.nome }}</option>
           </select>
       </div>
         <div class="col-md-8 mb-3">

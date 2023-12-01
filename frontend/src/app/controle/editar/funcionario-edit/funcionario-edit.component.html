@@ -19,7 +19,7 @@
       <label for="inputCargo" class="form-label">Cargo</label>
       <select id="selectFuncionario" class="form-select" formControlName="cargo" aria-label="Selecionar o cargo">
         <option>Selecione o cargo</option>
-        <option *ngFor="let cargo of cargos" [value]="cargo.id">{{ cargo.nome }}</option>
+        <option *ngFor="let cargo of cargos" [value]="cargo.nome">{{ cargo.nome }}</option>
       </select>
     </div>
     <div class="col-md-8 mb-3">

@@ -37,7 +37,7 @@ export class InventariosComponent implements OnInit, OnDestroy {
             this.message = "Nenhum inventário encontrado.";
             setTimeout(() => {
               this.mostrarAlert = false;
-            }, 10000);
+            }, 5000);
           }
         },
         error: (err: any) => {

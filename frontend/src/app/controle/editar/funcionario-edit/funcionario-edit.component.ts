@@ -73,7 +73,7 @@ export class FuncionarioEditComponent implements OnInit, OnDestroy {
           for (let i = 1; i < 6; i++) {
             if (this.funcionarioID.cargo == this.cargos[i].nome) {
               const selectFuncionario = document.getElementById('selectFuncionario') as HTMLInputElement;
-              selectFuncionario.value = this.cargos[i].id.toString();
+              selectFuncionario.value = this.cargos[i].nome;
             }
           }
         },

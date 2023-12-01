@@ -20,6 +20,7 @@
           <input type="number" class="form-control" formControlName="valor" id="inputValor" min="0">
         </div>
         <div class="col-md-8 mb-3">
+          <label class="form-label">Categoria</label>
             <select id="selectTitulo" class="form-select" formControlName="categoria" aria-label="Selecionar categoria">
                 <option>Selecione a categoria</option>
                 <option *ngFor="let cat of opt" [value]="cat.nome">{{ cat.nome }}</option>

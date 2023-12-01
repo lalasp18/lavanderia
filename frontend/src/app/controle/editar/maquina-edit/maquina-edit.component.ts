@@ -68,7 +68,7 @@ export class MaquinaEditComponent implements OnInit {
           for (let i = 1; i < 6; i++) {
             if(this.maquinaID.tipo == this.tipos[i].nome){
               const selectMaquina = document.getElementById('selectMaquina') as HTMLInputElement;
-              selectMaquina.value = this.tipos[i].id.toString();
+              selectMaquina.value = this.tipos[i].nome;
             }
           }
         },

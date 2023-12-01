@@ -1,5 +1,5 @@
 <div class="caixa mx-auto">
-    <h2 class="text-center">Realizar Atendimento</h2>
+    <h2 class="text-center">Realizar Pedido</h2>
 
     <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
       {{ message }}
@@ -18,9 +18,11 @@
         </div>
 
         <div class="col-md-8">
-            <label class="form-label">Status do pedido</label>
-            <select id="selectStatus" class="form-select" aria-label="Seleção de Status" disabled>
-                <option value="0" selected>A se iniciar</option>
+            <label class="form-label">Tipo de lavagem</label>
+            <select id="selectStatus" formControlName="tipoLavagem" class="form-select" aria-label="Seleção de lavagem">
+                <option value="1" selected>Lavagem 1</option>
+                <option value="2">Lavagem 2</option>
+                <option value="3">Lavagem 3</option>
             </select>
         </div>
 
@@ -68,10 +70,34 @@
             </select>
         </div>
 
-        <div class="col-md-8 mb-3">
-          <label for="inputValor" class="form-label">Valor Total</label>
-          <input type="number" class="form-control" formControlName="valorTotal" id="inputValor" [value]="orcamento" readonly>
+        <div class="d-flex col-md-12">
+            <div class="col-md-2">
+                <label class="form-label">Deseja entrega?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadio" id="flexRadioSim">
+                    <label class="form-check-label" for="flexRadioSim">
+                      Sim
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadio" id="flexRadioNao">
+                    <label class="form-check-label" for="flexRadioNao">
+                        Não
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-md-3 mx-2 mb-3">
+                <label for="inputValor" class="form-label">Peso da roupa</label>
+                <input type="number" class="form-control" formControlName="pesoRoupa" id="inputValor" placeholder="Peso (kg)">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="inputValor" class="form-label">Valor Total</label>
+                <input type="number" class="form-control" formControlName="valorTotal" id="inputValor" [value]="orcamento" readonly>
+            </div>
         </div>
+
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary me-4">Enviar</button>
             <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
