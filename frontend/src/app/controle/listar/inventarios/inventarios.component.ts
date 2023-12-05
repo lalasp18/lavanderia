@@ -32,21 +32,15 @@ export class InventariosComponent implements OnInit, OnDestroy {
           const data = itens;
           this.inventarioData = data;
           if(this.inventarioData.length <= 0) {
+            this.tipoAlert = "info";
             this.mostrarAlert = true;
-            this.tipoAlert = "warning";
             this.message = "Nenhum inventário encontrado.";
-            setTimeout(() => {
-              this.mostrarAlert = false;
-            }, 5000);
           }
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
           this.tipoAlert = "danger";
+          this.mostrarAlert = true;
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 10000);
         }
     });
   }
@@ -79,15 +73,18 @@ export class InventariosComponent implements OnInit, OnDestroy {
       next: (itens: any) => {
         this.ngOnInit();
         window.location.reload();
-      }//,
-      // error: (err: any) => {
-      //   this.mostrarAlert = true;
-      //   this.tipoAlert = "danger";
-      //   this.message = "Não foi possível deletar o item.";
-      //   setTimeout(() => {
-      //     this.mostrarAlert = false;
-      //   }, 10000);
-      // }
+      },
+      error: (err: any) => {
+        if(err.status === 400){
+          this.tipoAlert = 'success'
+          this.mostrarAlert = true
+          this.message = 'Inventário deletado com sucesso.'
+        } else if(err.status === 500){
+          this.tipoAlert = 'warning'
+          this.mostrarAlert = true
+          this.message = 'Inventário está em uso.'
+        }
+      }
     });
   }
 }

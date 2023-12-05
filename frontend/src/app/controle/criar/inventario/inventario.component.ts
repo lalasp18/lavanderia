@@ -15,6 +15,7 @@ export class InventarioComponent implements OnInit {
   formulario: FormGroup;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = "";
   tipoAlert: string = "";
 
@@ -41,12 +42,23 @@ export class InventarioComponent implements OnInit {
         this.inventario = data;
         this.goToRoute();
         this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = "info";
-        this.message = "Inventário cadastrado com sucesso!";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
+        
+        if(data == null) {
+          this.mostrarAlert = true;
+          this.tipoAlert = "info";
+          this.message = "Inventário com nome e categoria já existentes!";
+          setTimeout(() => {
+            this.mostrarAlert = false;
+          }, 5000);
+        } else{
+          this.mostrarAlert = true
+          this.mostrarSpin = true;
+          this.tipoAlert = "info";
+          this.message = "Inventário cadastrado com sucesso!";
+          setTimeout(() => {
+            this.router.navigate(['listar/itens']);
+          }, 5000);
+        }
       },
       error: (err: any) => {
         this.mostrarAlert = true;

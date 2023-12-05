@@ -2,7 +2,7 @@
     <h2 class="text-center">Cadastrar Item no Inventário</h2>
 
     <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
-      {{ message }}
+      {{ message }} <i class="fa-solid fa-spinner fa-spin fa-lg ms-2" *ngIf="mostrarSpin"></i>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
@@ -37,8 +37,9 @@
             <textarea class="form-control" formControlName="descricao" aria-label="inputDescricao"></textarea>
         </div>
         <div class="col-md-12">
-            <button type="submit" class="btn btn-primary me-4">Enviar</button>
-            <button type="reset" class="btn btn-secondary" id="resetaForm">Resetar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="reset" class="btn btn-secondary mx-4" id="resetaForm">Resetar</button>
+            <a href="listar/itens" type="button" class="btn btn-danger">Cancelar</a>
         </div>
       </form>
 </div>

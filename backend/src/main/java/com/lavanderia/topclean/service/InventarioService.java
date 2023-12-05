@@ -17,6 +17,11 @@ public class InventarioService {
     private InventarioRepository inventarioRepo;
 
     public Inventario saveInventario(Inventario inventarioEntra) {
+        String nomeParam = inventarioEntra.getNome();
+        String categParam = inventarioEntra.getCategoria();
+        if(inventarioRepo.findIfNameExists(nomeParam, categParam)){
+            return null;
+        }
         return inventarioRepo.save(inventarioEntra);
     }
 

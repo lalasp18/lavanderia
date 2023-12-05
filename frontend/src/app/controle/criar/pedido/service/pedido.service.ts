@@ -16,7 +16,7 @@ export class PedidoService {
     return this.http.post(`${this.API}/criar`, record);
   }
 
-  editarPedido(record: Pedido[]): Observable<Object> {
+  editarPedido(record: Pedido): Observable<Object> {
     return this.http.put(`${this.API}/editar`, record);
   }
 

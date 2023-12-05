@@ -34,8 +34,10 @@ export class PedidoComponent implements OnInit, OnDestroy {
   unsubscribe$Func!: Subscription;
 
   orcamento: number = 0;
+  adicionouFrete: boolean = false;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = "";
   tipoAlert: string = "";
 
@@ -51,10 +53,11 @@ export class PedidoComponent implements OnInit, OnDestroy {
     this.formulario = this.formBuilder.group({
       id: [null],
       cliente: [null, [Validators.required]],
-      tipoLavagem: [null, [Validators.required]],
+      // tipoLavagem: [null, [Validators.required]],
+      dtPedido: [null, [Validators.required]],
       status: [null, [Validators.required]],
-      maquinas: [null, [Validators.required]],
-      produtos: [null, [Validators.required]],
+      maquinas: this.formBuilder.array([]),
+      produtos: this.formBuilder.array([]),
       funcionario: [null, [Validators.required]],
       valorTotal: [null, [Validators.required]],
       entrega: [null, [Validators.required]],
@@ -63,19 +66,24 @@ export class PedidoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    
     this.unsubscribe$Prod = this.inventarioService.listarInventario()
       .subscribe({
         next: (itens: any) => {
           const data = itens;
           this.produtoList = data;
+
+          const total = document.getElementById('inputValor') as HTMLInputElement;
+          total.valueAsNumber = 0;
+
+          const dataEfet = document.getElementById('inputDt') as HTMLInputElement;
+          dataEfet.valueAsDate = new Date();
+          this.formulario.get('dtPedido')?.setValue(dataEfet.value);
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
+          this.tipoAlert = 'info'
+          this.mostrarAlert = true
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 10000);
         }
     });
 
@@ -86,12 +94,9 @@ export class PedidoComponent implements OnInit, OnDestroy {
           this.maquinaList = data;
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
+          this.tipoAlert = 'info'
+          this.mostrarAlert = true
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
         }
     });
 
@@ -102,12 +107,9 @@ export class PedidoComponent implements OnInit, OnDestroy {
           this.funcionarioList = data;
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
+          this.tipoAlert = 'info'
+          this.mostrarAlert = true
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
         }
     });
 
@@ -118,12 +120,9 @@ export class PedidoComponent implements OnInit, OnDestroy {
           this.clienteList = data;
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
+          this.tipoAlert = 'info'
+          this.mostrarAlert = true
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
         }
     });
   }
@@ -135,10 +134,16 @@ export class PedidoComponent implements OnInit, OnDestroy {
   }
 
   onChange(event: any) {
-    if (event.target.id === 'flexRadioSim') {
+    if (event.target.id === 'flexRadioSim' && !this.adicionouFrete) {
       this.formulario.get('entrega')?.setValue(true);
-    } else {
+      this.orcamento += 3;
+      this.adicionouFrete = true;
+    } else if(this.adicionouFrete) {
       this.formulario.get('entrega')?.setValue(false);
+      this.orcamento -= 3;
+      this.adicionouFrete = false;
+    } else {
+      this.orcamento += 0;
     }
   }
 
@@ -201,24 +206,29 @@ export class PedidoComponent implements OnInit, OnDestroy {
         next: (dir: any) => {
           funcionarioSelecionado = dir;
           this.formulario.get("funcionario")?.setValue(funcionarioSelecionado);
+          this.orcamento += 8.51;
         }
       })
     }
   }
   
-  pegarMaquina(event: any, maquina: Maquina, index: number) {
+  pegarMaquina(event: any, maquina: Maquina) {
     if (event.target.checked) {
       this.addMaquina(maquina)
+      this.orcamento += maquina.valor;
     } else {
       this.removeMaquina(maquina)
+      this.orcamento -= maquina.valor;
     }
   }
   
-  pegarProduto(event: any, produto: Inventario, index: number) {
+  pegarProduto(event: any, produto: Inventario) {
     if (event.target.checked) {
       this.addProduto(produto)
+      this.orcamento += produto.valor;
     } else {
       this.removeProduto(produto)
+      this.orcamento -= produto.valor;
     }
   }
 
@@ -228,20 +238,18 @@ export class PedidoComponent implements OnInit, OnDestroy {
         this.pedido = data;
         this.goToRoute();
         this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = "info";
+        this.tipoAlert = 'success'
+        this.mostrarAlert = true
+        this.mostrarSpin = true
         this.message = "Pedido cadastrado com sucesso!";
         setTimeout(() => {
-          this.mostrarAlert = false;
+          this.router.navigate(['listar/pedidos']);
         }, 5000);
       },
       error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = "danger";
+        this.tipoAlert = 'danger'
+        this.mostrarAlert = true
         this.message = "Cadastro não enviado.";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
       }
     });
   }
@@ -251,19 +259,18 @@ export class PedidoComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.formulario.get('status')?.setValue('0');
+    this.formulario.get('status')?.setValue(0);
+    this.formulario.get('valorTotal')?.setValue(this.orcamento);
     if (this.formulario.valid) {
       this.pedido = this.formulario.value;
       this.enviarForm();
+      this.orcamento = 0;
       window.scrollTo(0, 0);
     } else {
       window.scrollTo(0, 0);
-      this.mostrarAlert = true;
-      this.tipoAlert = "warning";
+      this.tipoAlert = 'warning'
+      this.mostrarAlert = true
       this.message = "Informação inválida. Preencha os campos!";
-      setTimeout(() => {
-        this.mostrarAlert = false;
-      }, 5000);
     }
   }
 }

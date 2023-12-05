@@ -28,9 +28,13 @@ export class FuncionarioListaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.unsubscribe$ = this.funcionarioService.listarFuncionarios()
       .subscribe({
-        next: (funcionarios: any) => {
-          const data = funcionarios;
+        next: (data: any) => {
           this.funcionarios = data;
+          if(this.funcionarios.length <= 0) {
+            this.tipoAlert = 'info'
+            this.mostrarAlert = true
+            this.message = "Nenhum funcionário encontrado."
+          }
         },
         error: (err: any) => {
           this.mostrarAlert = true;
@@ -62,20 +66,26 @@ export class FuncionarioListaComponent implements OnInit, OnDestroy {
   }
 
   deletarID(id: number) {
-    this.funcionarioService.deletarFuncionario(id)  // Adjust the service method
+    this.funcionarioService.deletarFuncionario(id)
     .subscribe({
       next: (funcionarios: any) => {
-        this.ngOnInit();
+        this.tipoAlert = 'success'
+        this.mostrarAlert = true
+        this.message = 'Funcionário deletado com sucesso.'
         window.location.reload();
-      }//,
-      // error: (err: any) => {
-      //   this.mostrarAlert = true;
-      //   this.tipoAlert = "danger";
-      //   this.message = "Não foi possível deletar o funcionário.";
-      //   setTimeout(() => {
-      //     this.mostrarAlert = false;
-      //   }, 10000);
-      // }
+        this.ngOnInit();
+      },
+      error: (err: any) => {
+        if(err.status === 400){
+          this.tipoAlert = 'success'
+          this.mostrarAlert = true
+          this.message = 'Funcionário deletado com sucesso.'
+        } else if(err.status === 500){
+          this.tipoAlert = 'danger'
+          this.mostrarAlert = true
+          this.message = 'Funcionário está em operação.'
+        }
+      }
     });
   }
 }

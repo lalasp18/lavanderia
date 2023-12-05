@@ -61,7 +61,7 @@ export class FuncionarioComponent implements OnInit {
         this.tipoAlert = 'info';
         this.message = 'Funcionário cadastrado com sucesso!';
         setTimeout(() => {
-          this.mostrarAlert = false;
+          this.router.navigate(['listar/funcionarios']);
         }, 5000);
       },
       error: (err: any) => {

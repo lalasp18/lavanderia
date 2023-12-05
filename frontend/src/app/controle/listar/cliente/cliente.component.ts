@@ -34,12 +34,7 @@ export class ClienteListaComponent implements OnInit, OnDestroy {
           this.formatarTelefones();
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
-          this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
+          alert("Dados não encontrados.");
         }
     });
   }
@@ -78,12 +73,11 @@ export class ClienteListaComponent implements OnInit, OnDestroy {
         this.ngOnInit();
       },
       error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = "danger";
-        this.message = "Não foi possível deletar o cliente.";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 10000);
+        if(err.status === 400){
+          alert('Cliente deletado com sucesso.')
+        } else if(err.status === 500){
+          alert('Cliente está com pedido em andamento.')
+        }
       }
     });
   }

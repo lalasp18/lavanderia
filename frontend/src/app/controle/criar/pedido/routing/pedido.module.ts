@@ -6,12 +6,14 @@ import { PedidosComponent } from 'src/app/controle/listar/pedidos/pedidos.compon
 import { PedidoEditComponent } from 'src/app/controle/editar/pedido-edit/pedido-edit.component';
 import { PedidoRoutingModule } from './pedido-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AtendimentosComponent } from 'src/app/controle/listar/atendimentos/atendimentos.component';
 
 @NgModule({
   declarations: [
     PedidoComponent,
     PedidosComponent,
-    PedidoEditComponent
+    PedidoEditComponent,
+    AtendimentosComponent
   ],
   imports: [
     CommonModule,

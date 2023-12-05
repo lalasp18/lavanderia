@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Maquina } from 'src/app/models/maquina.models';
@@ -29,7 +29,13 @@ export class MaquinaService {
   }
 
   deletarMaquina(id: number): Observable<Object> {
-    return this.http.delete(`${this.API}/${id}`);
+    return this.http.delete(`${this.API}/${id}`).pipe(catchError(error => {
+      if (error.status === 400) {
+          return throwError({ message: 'O produto não pode ser excluído' });
+      } else {
+          return throwError(error);
+      }
+  }));;
   }
 }
 

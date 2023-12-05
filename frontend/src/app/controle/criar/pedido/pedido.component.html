@@ -17,7 +17,12 @@
             </select>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-3 mb-3">
+            <label for="inputDt" class="form-label">Data do pedido</label>
+            <input type="date" class="form-control" formControlName="dtPedido" id="inputDt" readonly>
+        </div>
+
+        <!-- <div class="col-md-8">
             <label class="form-label">Tipo de lavagem</label>
             <select id="selectStatus" formControlName="tipoLavagem" class="form-select" aria-label="Seleção de lavagem">
                 <option selected>Selecione o tipo</option>
@@ -25,7 +30,7 @@
                 <option value="2">Lavagem 2</option>
                 <option value="3">Lavagem 3</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="col-md-8 mb-3">
             <label class="form-label">Máquina(s) a utilizar</label>
@@ -36,7 +41,7 @@
 
             <div class="dropdown-menu col-md-4" aria-labelledby="dropdownMaquina">
                 <div *ngFor="let maquina of maquinaList; index as i">
-                    <input class="form-check-input mx-2" type="checkbox" id="flexMaquina{{i}}" (change)="pegarMaquina($event,maquina,i)">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexMaquina{{i}}" (change)="pegarMaquina($event,maquina)">
                     <label class="form-check-label me-3" for="flexMaquina{{i}}">
                         {{maquina.nome}}
                     </label>
@@ -53,7 +58,7 @@
 
             <div class="dropdown-menu col-md-4" aria-labelledby="dropdownProduto">
                 <div *ngFor="let produto of produtoList; index as i">
-                    <input class="form-check-input mx-2" type="checkbox" id="flexProduto{{i}}" (change)="pegarProduto($event,produto,i)">
+                    <input class="form-check-input mx-2" type="checkbox" id="flexProduto{{i}}" (change)="pegarProduto($event,produto)">
                     <label class="form-check-label me-3" for="flexProduto{{i}}">
                         {{produto.nome}}
                     </label>
@@ -105,3 +110,19 @@
         </div>
       </form>
 </div>
+
+
+<!-- <div style="margin-top:20px;margin-left: 4em; width: 600px;" form="formulario">
+    <div style="background-color: tomato;">
+        Detalhes do form
+    </div>
+    <pre style="background-color: tan;">
+        Form válido: {{ formulario.valid }}
+    </pre>
+    <pre style="background-color: tan;">
+        Form inválido: {{ !formulario.valid }}
+    </pre>
+    <pre style="background-color: tan;">
+        Valores: <br> {{ formulario.value | json }}
+    </pre>
+</div> -->

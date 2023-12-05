@@ -15,45 +15,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lavanderia.topclean.models.Inventario;
-import com.lavanderia.topclean.service.InventarioService;
+import com.lavanderia.topclean.models.Pedido;
+import com.lavanderia.topclean.service.PedidoService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/inventario")
+@RequestMapping("/api/pedido")
 @AllArgsConstructor
-public class InventarioController {
+public class PedidoController {
 
-    private final InventarioService inventarioServ;
+    private final PedidoService pedidoService;
 
     @PostMapping("/criar")
-    public Inventario salvarInventario(@RequestBody Inventario grava) {
-        return inventarioServ.saveInventario(grava);
+    public Pedido salvarPedido(@RequestBody Pedido grava) {
+        return pedidoService.savePedido(grava);
+
     }
 
     @PutMapping("/editar")
-    public Inventario editarInventario(@RequestBody Inventario grava) throws RelationTypeNotFoundException {
-        return inventarioServ.editInventario(grava);
+    public Pedido editarPedido(@RequestBody Pedido grava) throws RelationTypeNotFoundException {
+        return pedidoService.editPedido(grava);
 
     }
 
     @GetMapping("/listar")
-    public List<Inventario> listarInventario() {
-        return inventarioServ.listInventario();
+    public List<Pedido> listarPedido() {
+        return pedidoService.listPedido();
     }
 
     @GetMapping("/listar/{id}")
-    public Inventario pegarIdInventario(@PathVariable Long id) throws RelationTypeNotFoundException {
-        return inventarioServ.listIdInventario(id);
+    public Pedido pegarIdPedido(@PathVariable Long id) throws RelationTypeNotFoundException {
+        return pedidoService.listIdPedido(id);
 
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<String> deletarInventario(@PathVariable Long id) {
+    public ResponseEntity<String> deletarPedido(@PathVariable Long id) {
         try {
-            inventarioServ.deleteIdInventario(id);
-            return ResponseEntity.ok("Inventário deletado com sucesso");
+            pedidoService.deleteIdPedido(id);
+            return ResponseEntity.ok("Pedido deletado com sucesso");
         } catch (RelationTypeNotFoundException erro) {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: " + erro.getMessage());

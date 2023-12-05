@@ -4,26 +4,29 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Funcionario } from "src/app/models/funcionario.models";
 import { Inventario } from "src/app/models/inventario.models";
 import { Maquina } from "src/app/models/maquina.models";
+import { Subscription } from "rxjs";
+import { OnDestroy } from "@angular/core";
+import { Cliente } from "src/app/models/cliente.models";
+import { Pedido } from "src/app/models/pedido.models";
 import { MaquinaService } from "../../criar/maquina/service/maquina.service";
 import { InventarioService } from "../../criar/inventario/service/inventario.service";
 import { FuncionarioService } from "../../criar/funcionario/service/funcionario.service";
-import { Pedido } from "src/app/models/pedido.models";
 import { ClienteService } from "../../criar/cliente/service/cliente.service";
 import { PedidoService } from "../../criar/pedido/service/pedido.service";
-import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-pedido-edit",
   templateUrl: "./pedido-edit.component.html",
   styleUrls: ["./pedido-edit.component.scss"]
 })
-export class PedidoEditComponent implements OnInit {
+export class PedidoEditComponent implements OnInit, OnDestroy {
 
   pedidoID!: Pedido;
+  pedidoEditado!: Pedido;
   funcionarioList: Funcionario[]=[];
   maquinaList: Maquina[]=[];
   produtoList: Inventario[]=[];
-  clienteList: any[]=[];
+  clienteList: Cliente[]=[];
 
   formulario: FormGroup;
   unsubscribe$!: Subscription;
@@ -33,8 +36,10 @@ export class PedidoEditComponent implements OnInit {
   unsubscribe$Func!: Subscription;
 
   orcamento: number = 0;
+  adicionouFrete!: boolean;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = "";
   tipoAlert: string = "";
 
@@ -51,10 +56,11 @@ export class PedidoEditComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       id: [null],
       cliente: [null, [Validators.required]],
-      tipoLavagem: [null, [Validators.required]],
+      // tipoLavagem: [null, [Validators.required]],
       status: [null, [Validators.required]],
-      maquinas: [null, [Validators.required]],
-      produtos: [null, [Validators.required]],
+      dtPedido: [null, [Validators.required]],
+      maquinas: this.formBuilder.array([]),
+      produtos: this.formBuilder.array([]),
       funcionario: [null, [Validators.required]],
       valorTotal: [null, [Validators.required]],
       entrega: [null, [Validators.required]],
@@ -63,42 +69,6 @@ export class PedidoEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = + this.route.snapshot.paramMap.get('id')!;
-
-    this.unsubscribe$ = this.pedidoService.pegarIdPedido(id)
-      .subscribe({
-        next: (itens: any) => {
-          const data = itens;
-          this.pedidoID = data;
-
-          this.formulario.get("id")?.setValue(this.pedidoID.id);
-          this.formulario.get("cliente")?.setValue(this.pedidoID.cliente);
-          this.formulario.get("tipoLavagem")?.setValue(this.pedidoID.tipoLavagem);
-          this.formulario.get("status")?.setValue(this.pedidoID.status);
-          this.formulario.get("maquinas")?.setValue(this.pedidoID.maquinas);
-          this.formulario.get("produtos")?.setValue(this.pedidoID.produtos);
-          this.formulario.get("funcionario")?.setValue(this.pedidoID.funcionario);
-          this.formulario.get("valorTotal")?.setValue(this.pedidoID.valorTotal);
-          this.formulario.get("entrega")?.setValue(this.pedidoID.entrega);
-          this.formulario.get("pesoRoupa")?.setValue(this.pedidoID.pesoRoupa);
-
-          for (let i = 1; i < 6; i++) {
-            // if(this.pedidoID.cliente == this.opt[i].nome){
-            //   const selectTitulo = document.getElementById('selectTitulo') as HTMLInputElement;
-            //   selectTitulo.value = this.opt[i].nome;
-            // }
-          }
-        },
-        error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
-          this.message = 'ERRO! Dados não encontrados!';
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
-        }
-      });
-    
     this.unsubscribe$Prod = this.inventarioService.listarInventario()
       .subscribe({
         next: (itens: any) => {
@@ -106,12 +76,9 @@ export class PedidoEditComponent implements OnInit {
           this.produtoList = data;
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
+          this.tipoAlert = 'danger'
+          this.mostrarAlert = true
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 10000);
         }
     });
 
@@ -122,12 +89,9 @@ export class PedidoEditComponent implements OnInit {
           this.maquinaList = data;
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
+          this.tipoAlert = 'danger'
+          this.mostrarAlert = true
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
         }
     });
 
@@ -138,12 +102,9 @@ export class PedidoEditComponent implements OnInit {
           this.funcionarioList = data;
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
+          this.tipoAlert = 'danger'
+          this.mostrarAlert = true
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
         }
     });
 
@@ -154,14 +115,90 @@ export class PedidoEditComponent implements OnInit {
           this.clienteList = data;
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
+          this.tipoAlert = 'danger'
+          this.mostrarAlert = true
           this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
         }
     });
+
+    const id = + this.route.snapshot.paramMap.get('id')!;
+
+    this.unsubscribe$ = this.pedidoService.pegarIdPedido(id)
+      .subscribe({
+        next: (data:any) => {
+          this.pedidoID = data;
+
+          this.formulario.get("id")?.setValue(this.pedidoID.id);
+          this.formulario.get("cliente")?.setValue(this.pedidoID.cliente);
+          // this.formulario.get("tipoLavagem")?.setValue(this.pedidoID.tipoLavagem);
+          this.formulario.get("status")?.setValue(this.pedidoID.status);
+          this.formulario.get("dtPedido")?.setValue(this.pedidoID.dtPedido);
+          this.formulario.get("maquinas")?.patchValue(this.pedidoID.maquinas);
+          this.formulario.get("produtos")?.patchValue(this.pedidoID.produtos);
+          this.formulario.get("funcionario")?.setValue(this.pedidoID.funcionario);
+          this.formulario.get("valorTotal")?.setValue(this.pedidoID.valorTotal);
+          this.formulario.get("entrega")?.setValue(this.pedidoID.entrega);
+          this.formulario.get("pesoRoupa")?.setValue(this.pedidoID.pesoRoupa);
+          
+          this.orcamento = this.pedidoID.valorTotal;
+          const selCli = document.getElementById('selectCliente') as HTMLInputElement;
+          selCli.value = this.pedidoID.cliente.id.toString();
+          const selFun = document.getElementById('selectFuncionario') as HTMLInputElement;
+          selFun.value = this.pedidoID.funcionario.id.toString();
+          if(this.pedidoID.entrega){
+            this.adicionouFrete = true;
+            const radioElementS = document.getElementById("flexRadioSim") as HTMLInputElement;
+            radioElementS.checked = true;
+          } else {
+            this.adicionouFrete = false;
+            const radioElementN = document.getElementById("flexRadioNao") as HTMLInputElement;
+            radioElementN.checked = true;
+          }
+          
+          for(let i = 0; i < this.maquinaList.length; i++) {
+            for (let maq of this.pedidoID.maquinas) {
+              if(this.maquinaList[i].id == maq.id) {
+                const dropM = document.getElementById("flexMaquina"+i) as HTMLInputElement;
+                dropM.checked = true;
+              }
+            }
+          }
+          
+          for(let i = 0; i < this.produtoList.length; i++) {
+            for (let pro of this.pedidoID.produtos) {
+              if(this.produtoList[i].id == pro.id) {
+                const dropP = document.getElementById("flexProduto"+i) as HTMLInputElement;
+                dropP.checked = true;
+              }
+            }
+          }
+        },
+        error: (err: any) => {
+          this.tipoAlert = 'danger'
+          this.mostrarAlert = true
+          this.message = 'Dados do pedido não foram encontrados! Servidor não está respondendo.'
+        }
+      })
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$Prod.unsubscribe();
+    this.unsubscribe$Maq.unsubscribe();
+    this.unsubscribe$Func.unsubscribe();
+  }
+
+  onChange(event: any) {
+    if (event.target.id === 'flexRadioSim' && !this.adicionouFrete) {
+      this.formulario.get('entrega')?.setValue(true);
+      this.orcamento += 3;
+      this.adicionouFrete = true;
+    } else if(this.adicionouFrete) {
+      this.formulario.get('entrega')?.setValue(false);
+      this.orcamento -= 3;
+      this.adicionouFrete = false;
+    } else {
+      this.orcamento += 0;
+    }
   }
 
   getMaquina(): FormArray {
@@ -174,7 +211,7 @@ export class PedidoEditComponent implements OnInit {
 
   removeMaquina(maquina: Maquina) {
     const maquinasArray = this.getMaquina();
-    const index = maquinasArray.controls.findIndex(control => control.value === maquina);
+    const index = maquinasArray.controls.findIndex((control:any) => control.value === maquina);
 
     if (index !== -1) {
       maquinasArray.removeAt(index);
@@ -193,7 +230,7 @@ export class PedidoEditComponent implements OnInit {
 
   removeProduto(produto: Inventario) {
     const produtosArray = this.getProduto();
-    const index = produtosArray.controls.findIndex(control => control.value === produto);
+    const index = produtosArray.controls.findIndex((control: any) => control.value === produto);
 
     if (index !== -1) {
       produtosArray.removeAt(index);
@@ -206,12 +243,12 @@ export class PedidoEditComponent implements OnInit {
     let clienteSelecionado = event.target.value;
 
     if (clienteSelecionado) {
-      // this.clienteService.pegarIdCliente(clienteSelecionado).subscribe({
-      //   next: (dir: any) => {
-      //     clienteSelecionado = dir;
-      //     this.tituloform.get("cliente")?.setValue(clienteSelecionado);
-      //   }
-      // })
+      this.clienteService.pegarIdCliente(clienteSelecionado).subscribe({
+        next: (dir: any) => {
+          clienteSelecionado = dir;
+          this.formulario.get("cliente")?.setValue(clienteSelecionado);
+        }
+      })
     }
   }
   
@@ -223,69 +260,70 @@ export class PedidoEditComponent implements OnInit {
         next: (dir: any) => {
           funcionarioSelecionado = dir;
           this.formulario.get("funcionario")?.setValue(funcionarioSelecionado);
+          this.orcamento += 8.51;
         }
       })
     }
   }
   
-  pegarMaquina(event: any, maquina: Maquina, index: number) {
+  pegarMaquina(event: any, maquina: Maquina) {
     if (event.target.checked) {
       this.addMaquina(maquina)
+      this.orcamento += maquina.valor;
     } else {
       this.removeMaquina(maquina)
+      this.orcamento -= maquina.valor;
     }
   }
   
-  pegarProduto(event: any, produto: Inventario, index: number) {
+  pegarProduto(event: any, produto: Inventario) {
     if (event.target.checked) {
       this.addProduto(produto)
+      this.orcamento += produto.valor;
     } else {
       this.removeProduto(produto)
+      this.orcamento -= produto.valor;
     }
   }
 
   enviarForm() {
-    // this.inventarioService.salvarInventario(this.inventario).subscribe({
-    //   next: (data: any) => {
-    //     this.inventario = data;
-    //     this.goToRoute();
-    //     this.formulario.reset();
-    //     this.mostrarAlert = true;
-    //     this.tipoAlert = "info";
-    //     this.message = "Inventário cadastrado com sucesso!";
-    //     setTimeout(() => {
-    //       this.mostrarAlert = false;
-    //     }, 5000);
-    //   },
-    //   error: (err: any) => {
-    //     this.mostrarAlert = true;
-    //     this.tipoAlert = "danger";
-    //     this.message = "Cadastro não enviado.";
-    //     setTimeout(() => {
-    //       this.mostrarAlert = false;
-    //     }, 5000);
-    //   }
-    // });
+    this.pedidoService.editarPedido(this.pedidoEditado).subscribe({
+      next: (data: any) => {
+        this.pedidoEditado = data;
+        this.goToRoute();
+        this.formulario.reset();
+        this.tipoAlert = 'success'
+        this.mostrarAlert = true
+        this.mostrarSpin = true
+        this.message = "Pedido editado com sucesso!";
+        setTimeout(() => {
+          this.router.navigate(['listar/pedidos']);
+        }, 5000);
+      },
+      error: (err: any) => {
+        this.tipoAlert = 'danger'
+        this.mostrarAlert = true
+        this.message = "Edição não enviada.";
+      }
+    });
   }
 
   goToRoute() {
-    this.router.navigate(["api/atendimento/criar"]);
+    this.router.navigate(["api/pedido/criar"]);
   }
 
   onSubmit() {
-    console.log(this.formulario.value);
+    this.formulario.get('valorTotal')?.setValue(this.orcamento);
     if (this.formulario.valid) {
-      // this.inventario = this.formulario.value;
+      this.pedidoEditado = this.formulario.value;
       this.enviarForm();
+      this.orcamento = 0;
       window.scrollTo(0, 0);
     } else {
       window.scrollTo(0, 0);
-      this.mostrarAlert = true;
-      this.tipoAlert = "warning";
+      this.tipoAlert = 'warning'
+      this.mostrarAlert = true
       this.message = "Informação inválida. Preencha os campos!";
-      setTimeout(() => {
-        this.mostrarAlert = false;
-      }, 5000);
     }
   }
 }

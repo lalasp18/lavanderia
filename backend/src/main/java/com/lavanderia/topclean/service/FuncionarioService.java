@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.management.relation.RelationTypeNotFoundException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lavanderia.topclean.models.Funcionario;
@@ -12,14 +13,15 @@ import com.lavanderia.topclean.repository.FuncionarioRepository;
 @Service
 public class FuncionarioService {
 
+    @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository) {
-        this.funcionarioRepository = funcionarioRepository;
-    }
-
-    public Funcionario criarFuncionario(Funcionario funcionario) {
-        return funcionarioRepository.save(funcionario);
+    public Funcionario criarFuncionario(Funcionario funcionarioEntra) {
+        String emailParam = funcionarioEntra.getEmail();
+        if(funcionarioRepository.findIfEmailExists(emailParam)){
+            return null;
+        }
+        return funcionarioRepository.save(funcionarioEntra);
     }
 
     public Funcionario editarFuncionario(Funcionario funcionario) throws RelationTypeNotFoundException {

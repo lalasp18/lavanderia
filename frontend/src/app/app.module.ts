@@ -20,7 +20,7 @@ import { PedidoModule } from './controle/criar/pedido/routing/pedido.module';
   declarations: [
     AppComponent,
     NavHeaderComponent,
-    FooterComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

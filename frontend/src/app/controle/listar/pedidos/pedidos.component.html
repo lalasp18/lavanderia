@@ -1,38 +1,29 @@
 <div class="caixa mx-auto">
-    <h2 class="text-center">Lista de Pedidos</h2>
+  <div class="row justify-content-around">
+    <h2 class="col">Lista de Pedidos</h2>
+    <a href="cadastrar/pedido" class="col-1 fs-3 me-3">
+      <button type="button" class="btn btn-primary">+</button>
+    </a>
+  </div>
 
-    <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
+    <div class="alert alert-{{tipoAlert}} alert-dismissible fade show mt-4" role="alert" *ngIf="mostrarAlert">
       {{ message }}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <!-- EXEMPLO -->
-    <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4">
-      <div class="card col me-4 mb-2" style="width: 18rem;">
+    <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4" *ngIf="pedidos.length > 0">
+      <div class="card col me-4 mb-2" style="width: 18rem;" *ngFor="let itens of pedidos; index as i">
         <div class="card-body">
-            <h5 class="card-title">itens.cliente</h5>
-            <p class="card-text">Preço: itens.valorTotal</p>
-            <p class="card-text">Máquinas: itens.maquinas</p>
-            <p class="card-text">Produtos: itens.produtos</p>
-            <p class="card-text">Fucionário responsável: itens.funcionario</p>
-            <a class="btn btn-warning me-2" (click)="editarID(0)">Editar</a>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(0)">Deletar</button>
-          </div>
-      </div>
-    </div>
-    <!-- <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3 my-4" *ngIf="atendimentoData.length > 0">
-      <div class="card col me-4 mb-2" style="width: 18rem;" *ngFor="let itens of atendimentoData; index as i">
-        <div class="card-body">
-          <h5 class="card-title">{{ itens.cliente}}</h5>
-          <p class="card-text">Preço: {{ itens.valorTota | currency:'BRL'l}}</p>
-          <p class="card-text">Máquinas: {{ itens.maquinas}}</p>
-          <p class="card-text">Produtos: {{ itens.produtos}}</p>
-          <p class="card-text">Fucionário responsável: {{ itens.funcionario}}</p>
+          <h5 class="card-title">{{ itens.cliente.nome }}</h5>
+          <p class="card-text">Preço: {{ itens.valorTotal | currency:'BRL' }}</p>
+          <p class="card-text">Máquinas: {{ formatarMaquinas(itens.maquinas) }}</p>
+          <p class="card-text">Produtos: {{ formatarProdutos(itens.produtos) }}</p>
+          <p class="card-text">Fucionário responsável: {{ itens.funcionario.nome }}</p>
           <a class="btn btn-warning me-2" (click)="editarID(itens.id)">Editar</a>
           <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="definirIdParaDeletar(itens.id)">Deletar</button>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden)="limparIdParaDeletar()">
       <div class="modal-dialog modal-dialog-centered">

@@ -33,12 +33,8 @@ export class MaquinaListaComponent implements OnInit, OnDestroy {
           this.maquinas = data;
         },
         error: (err: any) => {
-          this.mostrarAlert = true;
-          this.tipoAlert = "danger";
-          this.message = "Dados não encontrados.";
-          setTimeout(() => {
-            this.mostrarAlert = false;
-          }, 5000);
+          alert(err)
+          alert("Dados não encontrados.");
         }
     });
   }
@@ -63,18 +59,18 @@ export class MaquinaListaComponent implements OnInit, OnDestroy {
 
   deletarID(id: number) {
     this.maquinaService.deletarMaquina(id)
-    .subscribe(maquinas => {
-      this.ngOnInit();
-      window.location.reload();
-      //,
-      // error: (err: any) => {
-      //   this.mostrarAlert = true;
-      //   this.tipoAlert = "danger";
-      //   this.message = "Não foi possível deletar a máquina.";
-      //   setTimeout(() => {
-      //     this.mostrarAlert = false;
-      //   }, 10000);
-      // }
+    .subscribe({
+      next: (maquinas:any) => {
+        this.ngOnInit();
+        window.location.reload();
+      },
+      error: (err: any) => {
+        if(err.status === 400){
+          alert('Máquina deletada com sucesso.')
+        } else if(err.status === 500){
+          alert('Máquina está em uso.')
+        }
+      }
     });
   }
 }
