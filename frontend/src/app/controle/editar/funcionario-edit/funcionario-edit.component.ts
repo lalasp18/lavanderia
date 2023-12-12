@@ -18,6 +18,7 @@ export class FuncionarioEditComponent implements OnInit, OnDestroy {
   unsubscribe$!: Subscription;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = "";
   tipoAlert: string = "";
 
@@ -100,6 +101,7 @@ export class FuncionarioEditComponent implements OnInit, OnDestroy {
             this.funcionario = data;
             this.formulario.reset();
             this.mostrarAlert = true;
+            this.mostrarSpin = true
             this.tipoAlert = 'info';
             if(data != null){
             this.message = 'Funcionário editado com sucesso!';

@@ -18,6 +18,7 @@ export class ClienteEditComponent implements OnInit {
   unsubscribe$!: Subscription;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = "";
   tipoAlert: string = "";
 
@@ -81,6 +82,7 @@ export class ClienteEditComponent implements OnInit {
             this.cliente = data;
             this.formulario.reset();
             this.mostrarAlert = true;
+            this.mostrarSpin = true
             this.tipoAlert = 'info';
             if(data != null){
             this.message = 'Cliente editado com sucesso!';

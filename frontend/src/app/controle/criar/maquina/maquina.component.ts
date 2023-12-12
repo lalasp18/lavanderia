@@ -14,6 +14,7 @@ export class MaquinaComponent implements OnInit {
   formulario: FormGroup;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = '';
   tipoAlert: string = '';
 
@@ -46,6 +47,7 @@ export class MaquinaComponent implements OnInit {
             this.maquina = data;
             this.formulario.reset();
             this.mostrarAlert = true;
+            this.mostrarSpin = true;
             this.tipoAlert = 'info';
             this.message = 'Máquina cadastrada com sucesso!';
             setTimeout(() => {

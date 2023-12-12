@@ -3,7 +3,7 @@
     <h2 class="text-center">Cadastrar Funcionário</h2>
   
     <div class="alert alert-{{ tipoAlert }} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
-      {{ message }}
+      {{ message }} <i class="fa-solid fa-spinner fa-spin fa-lg mx-2" *ngIf="mostrarSpin"></i>Aguarde...
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   

@@ -18,6 +18,7 @@ export class MaquinaEditComponent implements OnInit {
   unsubscribe$!: Subscription;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = "";
   tipoAlert: string = "";
 
@@ -100,6 +101,7 @@ export class MaquinaEditComponent implements OnInit {
           },
           error: (err: any) => {
               this.mostrarAlert = true;
+              this.mostrarSpin = true
               this.tipoAlert = 'danger';
               this.message = 'Edição não concluída.';
               setTimeout(() => {

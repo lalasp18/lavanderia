@@ -18,6 +18,7 @@ export class InventarioEditComponent implements OnInit {
   unsubscribe$!: Subscription;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = "";
   tipoAlert: string = "";
   
@@ -102,6 +103,7 @@ export class InventarioEditComponent implements OnInit {
               this.inventario = data;
               this.formulario.reset();
               this.mostrarAlert = true;
+              this.mostrarSpin = true
               this.tipoAlert = 'info';
               this.message = 'Inventário editado com sucesso!';
               setTimeout(() => {

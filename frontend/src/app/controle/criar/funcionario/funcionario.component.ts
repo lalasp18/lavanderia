@@ -16,6 +16,7 @@ export class FuncionarioComponent implements OnInit {
   complexidadeSenha: number = 0;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = '';
   tipoAlert: string = '';
 
@@ -52,6 +53,7 @@ export class FuncionarioComponent implements OnInit {
             this.funcionario = data;
             this.formulario.reset();
             this.mostrarAlert = true;
+            this.mostrarSpin = true;
             this.tipoAlert = 'info';
             if(data != null){
             this.message = 'Funcionário cadastrado com sucesso!';

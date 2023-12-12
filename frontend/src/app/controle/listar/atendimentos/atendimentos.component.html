@@ -11,7 +11,7 @@
     <div class="row row-cols-3 g-2 justify-content-center my-4">
         <div class="col d-flex flex-column">
             <h3>A se iniciar</h3>
-            <div class="card text-center" style="width: 18rem;" *ngFor="let item0 of pedidosInicia; index as i">
+            <div class="card text-center my-3" style="width: 18rem;" *ngFor="let item0 of pedidosInicia; index as i">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">{{item0.cliente.nome}}</li>
                   <li class="list-group-item d-flex justify-content-between">
@@ -25,7 +25,7 @@
         </div>
         <div class="col d-flex flex-column">
             <h3>Em andamento</h3>
-            <div class="card text-center" style="width: 18rem;" *ngFor="let item1 of pedidosAnda; index as i">
+            <div class="card text-center my-3" style="width: 18rem;" *ngFor="let item1 of pedidosAnda; index as i">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">{{item1.cliente.nome}}</li>
                   <li class="list-group-item d-flex justify-content-between">
@@ -42,7 +42,7 @@
         </div>
         <div class="col d-flex flex-column">
             <h3>Concluido</h3>
-            <div class="card text-center" style="width: 18rem;" *ngFor="let item2 of pedidosConclui; index as i">
+            <div class="card text-center my-3" style="width: 18rem;" *ngFor="let item2 of pedidosConclui; index as i">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">{{item2.cliente.nome}}</li>
                   <li class="list-group-item d-flex justify-content-between">
