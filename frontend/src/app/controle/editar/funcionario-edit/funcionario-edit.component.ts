@@ -110,6 +110,7 @@ export class FuncionarioEditComponent implements OnInit, OnDestroy {
                 this.router.navigate(['listar/funcionario']); // Navega para a tela de listar após ocultar o spinner
             }, 2000); // Tempo para mostrar o spinner (2 segundos)
           }else{
+            this.mostrarSpin = false
               this.message = 'E-mail já existente!'
             }
         },

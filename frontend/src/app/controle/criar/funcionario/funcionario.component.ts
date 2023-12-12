@@ -62,6 +62,7 @@ export class FuncionarioComponent implements OnInit {
                 this.router.navigate(['listar/funcionario']);
             }, 5000);
           }else {
+            this.mostrarSpin = false
             this.message = 'E-mail já existente!'
           }
         },
