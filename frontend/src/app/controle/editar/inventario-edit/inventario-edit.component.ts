@@ -94,30 +94,32 @@ export class InventarioEditComponent implements OnInit {
       });
     }
 
-  enviarForm() {
-    this.inventarioService.editarInventario(this.inventario).subscribe({
-      next: (data: any) => {
-        this.inventario = data;
-        this.goToRoute();
-        this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = "info";
-        this.message = "Inventário editado com sucesso!";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = "danger";
-        this.message = "Erro! Item não foi salvo.";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      }
-    });
+    enviarForm() {
+      const inventarioEditado: Inventario = this.formulario.value;
+  
+      this.inventarioService.editarInventario(this.inventario).subscribe({
+          next: (data: any) => {
+              this.inventario = data;
+              this.formulario.reset();
+              this.mostrarAlert = true;
+              this.tipoAlert = 'info';
+              this.message = 'Inventário editado com sucesso!';
+              setTimeout(() => {
+                  this.mostrarAlert = false;
+                  this.router.navigate(['listar/itens']); // Navega para a tela de listar após ocultar o spinner
+              }, 2000); // Tempo para mostrar o spinner (2 segundos)
+          },
+          error: (err: any) => {
+              this.mostrarAlert = true;
+              this.tipoAlert = 'danger';
+              this.message = 'Edição não concluída.';
+              setTimeout(() => {
+                  this.mostrarAlert = false;
+              }, 5000);
+          },
+      });
   }
-
+  
   goToRoute() {
     this.router.navigate(["api/inventario/editar"]);
   }

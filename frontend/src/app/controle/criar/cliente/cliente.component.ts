@@ -14,6 +14,7 @@ export class ClienteComponent implements OnInit {
   formulario: FormGroup;
 
   mostrarAlert: boolean = false;
+  mostrarSpin: boolean = false;
   message: string = '';
   tipoAlert: string = '';
 
@@ -42,13 +43,10 @@ export class ClienteComponent implements OnInit {
   ngOnInit() {}
 
   formatarTelefone(event: any) {
-    const telefone = event.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-    if (telefone.length <= 11) {
-      event.target.value = this.formatarNumero(telefone);
-    } else {
-      event.target.value = this.formatarNumero(telefone.substring(0, 11));
-    }
-  }
+    let telefone = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    telefone = telefone.substring(0, 11); // Limit to a maximum of 15 characters
+    event.target.value = this.formatarNumero(telefone);
+}
 
   // Função para formatar o número no estilo desejado
   formatarNumero(numero: string): string {
@@ -64,28 +62,29 @@ export class ClienteComponent implements OnInit {
   enviarForm() {
     const novoCliente: Cliente = this.formulario.value; // Obtenha o cliente do formulário
     this.clienteService.salvarCliente(novoCliente).subscribe({
-      next: (data: any) => {
-        this.cliente = data;
-        this.goToRoute();
-        this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = 'info';
-        this.message = 'Cliente cadastrado com sucesso!';
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = 'danger';
-        this.message = 'Cadastro não enviado.';
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
+        next: (data: any) => {
+            this.cliente = data;
+            this.formulario.reset();
+            this.mostrarAlert = true;
+            this.mostrarSpin = true; // Adiciona a variável de controle para mostrar o spinner
+            this.tipoAlert = 'info';
+            this.message = 'Cliente cadastrado com sucesso!';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+                this.mostrarSpin = false; // Esconde o spinner após um período (pode ajustar conforme necessário)
+                this.router.navigate(['listar/cliente']); // Navega para a tela de listar após ocultar o spinner
+            }, 2000); // Tempo para mostrar o spinner (2 segundos)
+        },
+        error: (err: any) => {
+            this.mostrarAlert = true;
+            this.tipoAlert = 'danger';
+            this.message = 'Cadastro não enviado.';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+            }, 5000);
+        },
     });
-  }
-
+}
   goToRoute() {
     this.router.navigate(['api/cliente/cadastrar']);
   }

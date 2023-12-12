@@ -73,30 +73,31 @@ export class ClienteEditComponent implements OnInit {
   }
 
   enviarForm() {
-    const novoCliente: Cliente = this.formulario.value;
-    novoCliente.telefone = this.formulario.value.telefone.replace(/\D/g, ''); // Remove caracteres não numéricos
-    this.clienteService.salvarCliente(novoCliente).subscribe({
-      next: (data: any) => {
-        this.cliente = data;
-        this.goToRoute();
-        this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = 'info';
-        this.message = 'Cliente editado com sucesso!';
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = 'danger';
-        this.message = 'Edição não concluída.';
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
+    const clienteEditado: Cliente = this.formulario.value;
+    clienteEditado.telefone = this.formulario.value.telefone.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+    this.clienteService.salvarCliente(clienteEditado).subscribe({
+        next: (data: any) => {
+            this.cliente = data;
+            this.formulario.reset();
+            this.mostrarAlert = true;
+            this.tipoAlert = 'info';
+            this.message = 'Cliente editado com sucesso!';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+                this.router.navigate(['listar/cliente']); // Navega para a tela de listar após ocultar o spinner
+            }, 2000); // Tempo para mostrar o spinner (2 segundos)
+        },
+        error: (err: any) => {
+            this.mostrarAlert = true;
+            this.tipoAlert = 'danger';
+            this.message = 'Edição não concluída.';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+            }, 5000);
+        },
     });
-  }
+}
 
   goToRoute() {
     this.router.navigate(["api/cliente/editar"]);

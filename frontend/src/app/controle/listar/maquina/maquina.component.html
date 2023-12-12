@@ -1,5 +1,10 @@
 <div class="caixa mx-auto">
-    <h2 class="text-center">Lista de Máquinas</h2>
+  <div class="row justify-content-around">
+    <h2 class="col">Lista de Máquinas</h2>
+    <a href="cadastrar/maquina" class="col-1 fs-3 me-3">
+      <button type="button" class="btn btn-primary">+</button>
+    </a>
+  </div>
 
     <div class="alert alert-{{tipoAlert}} alert-dismissible fade show" role="alert" *ngIf="mostrarAlert">
       {{ message }}

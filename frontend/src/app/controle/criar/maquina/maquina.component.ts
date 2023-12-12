@@ -40,28 +40,29 @@ export class MaquinaComponent implements OnInit {
   ngOnInit() { }
 
   enviarForm() {
+    const novaMaquina: Maquina = this.formulario.value;
     this.maquinaService.salvarMaquina(this.maquina).subscribe({
-      next: (data: any) => {
-        this.maquina = data;
-        this.goToRoute();
-        this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = 'info';
-        this.message = 'Máquina cadastrada com sucesso!';
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = 'danger';
-        this.message = 'Cadastro não enviado.';
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
+        next: (data: any) => {
+            this.maquina = data;
+            this.formulario.reset();
+            this.mostrarAlert = true;
+            this.tipoAlert = 'info';
+            this.message = 'Máquina cadastrada com sucesso!';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+                this.router.navigate(['listar/maquina']); // Ajuste a rota conforme necessário
+            }, 5000);
+        },
+        error: (err: any) => {
+            this.mostrarAlert = true;
+            this.tipoAlert = 'danger';
+            this.message = 'Cadastro não enviado.';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+            }, 5000);
+        },
     });
-  }
+}
 
   goToRoute() {
     this.router.navigate(['api/maquina/criar']);
