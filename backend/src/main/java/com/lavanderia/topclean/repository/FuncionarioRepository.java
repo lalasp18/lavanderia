@@ -8,6 +8,6 @@ import com.lavanderia.topclean.models.Funcionario;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
     
-    @Query(value = "SELECT EXISTS( SELECT * FROM inventario WHERE email = :emailParam );", nativeQuery = true)
+    @Query(value = "SELECT EXISTS( SELECT * FROM funcionario WHERE email = :emailParam );", nativeQuery = true)
     boolean findIfEmailExists(@Param("emailParam") String emailParam);
 }

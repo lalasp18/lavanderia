@@ -39,9 +39,42 @@ public class PedidoController {
 
     }
 
+    @PutMapping("/editar/iniciar")
+    public Pedido editarPedidoStatus0(@RequestBody Pedido grava) throws RelationTypeNotFoundException {
+        return pedidoService.editPedidoPara0(grava);
+
+    }
+
+    @PutMapping("/editar/andamento")
+    public Pedido editarPedidoStatus1(@RequestBody Pedido grava) throws RelationTypeNotFoundException {
+        return pedidoService.editPedidoPara1(grava);
+
+    }
+
+    @PutMapping("/editar/concluido")
+    public Pedido editarPedidoStatus2(@RequestBody Pedido grava) throws RelationTypeNotFoundException {
+        return pedidoService.editPedidoPara2(grava);
+
+    }
+
     @GetMapping("/listar")
     public List<Pedido> listarPedido() {
         return pedidoService.listPedido();
+    }
+
+    @GetMapping("/listar/atendimento/inicia")
+    public List<Pedido> listarPedidoStatus0() {
+        return pedidoService.listPedidoStatus0();
+    }
+
+    @GetMapping("/listar/atendimento/andamento")
+    public List<Pedido> listarPedidoStatus1() {
+        return pedidoService.listPedidoStatus1();
+    }
+
+    @GetMapping("/listar/atendimento/concluido")
+    public List<Pedido> listarPedidoStatus2() {
+        return pedidoService.listPedidoStatus2();
     }
 
     @GetMapping("/listar/{id}")

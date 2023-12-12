@@ -19,9 +19,32 @@ export class PedidoService {
   editarPedido(record: Pedido): Observable<Object> {
     return this.http.put(`${this.API}/editar`, record);
   }
+  
+  editarPedidoStatus0(record: Pedido): Observable<Object> {
+    return this.http.put(`${this.API}/editar/iniciar`, record);
+  }
+
+  editarPedidoStatus1(record: Pedido): Observable<Object> {
+    return this.http.put(`${this.API}/editar/andamento`, record);
+  }
+
+  editarPedidoStatus2(record: Pedido): Observable<Object> {
+    return this.http.put(`${this.API}/editar/concluido`, record);
+  }
 
   listarPedido(): Observable<Pedido[]> {
     return this.http.get<Pedido[]>(`${this.API}/listar`);
+  }
+  listarPedidoStatus0(): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.API}/listar/atendimento/inicia`);
+  }
+
+  listarPedidoStatus1(): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.API}/listar/atendimento/andamento`);
+  }
+
+  listarPedidoStatus2(): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.API}/listar/atendimento/concluido`);
   }
 
   pegarIdPedido(id: number): Observable<Pedido> {

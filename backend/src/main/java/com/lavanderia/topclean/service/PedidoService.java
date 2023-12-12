@@ -22,7 +22,7 @@ public class PedidoService {
 
     public Pedido editPedido(Pedido pedidoEntra) throws RelationTypeNotFoundException {
         Pedido editado = pRepository.findById(pedidoEntra.getId())
-            .orElseThrow(() -> new RelationTypeNotFoundException("Inventário não existe com id :" + pedidoEntra.getId()));
+            .orElseThrow(() -> new RelationTypeNotFoundException("Pedido não existe com id :" + pedidoEntra.getId()));
         
         editado.setId(pedidoEntra.getId());
         editado.setCliente(pedidoEntra.getCliente());
@@ -36,8 +36,44 @@ public class PedidoService {
         return pRepository.save(editado);
     }
 
+    public Pedido editPedidoPara0(Pedido pedidoEntra) throws RelationTypeNotFoundException {
+        Pedido editado = pRepository.findById(pedidoEntra.getId())
+            .orElseThrow(() -> new RelationTypeNotFoundException("Pedido não existe com id :" + pedidoEntra.getId()));
+        
+        editado.setStatus(0);
+        return pRepository.save(editado);
+    }
+
+    public Pedido editPedidoPara1(Pedido pedidoEntra) throws RelationTypeNotFoundException {
+        Pedido editado = pRepository.findById(pedidoEntra.getId())
+            .orElseThrow(() -> new RelationTypeNotFoundException("Pedido não existe com id :" + pedidoEntra.getId()));
+        
+        editado.setStatus(1);
+        return pRepository.save(editado);
+    }
+
+    public Pedido editPedidoPara2(Pedido pedidoEntra) throws RelationTypeNotFoundException {
+        Pedido editado = pRepository.findById(pedidoEntra.getId())
+            .orElseThrow(() -> new RelationTypeNotFoundException("Pedido não existe com id :" + pedidoEntra.getId()));
+        
+        editado.setStatus(2);
+        return pRepository.save(editado);
+    }
+
     public List<Pedido> listPedido() {
         return pRepository.findAll();
+    }
+
+    public List<Pedido> listPedidoStatus0() {
+        return pRepository.findByStatusInicio();
+    }
+
+    public List<Pedido> listPedidoStatus1() {
+        return pRepository.findByStatusAndam();
+    }
+
+    public List<Pedido> listPedidoStatus2() {
+        return pRepository.findByStatusConclui();
     }
 
     public Pedido listIdPedido(Long id) throws RelationTypeNotFoundException {

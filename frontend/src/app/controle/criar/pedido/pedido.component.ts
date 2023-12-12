@@ -238,7 +238,7 @@ export class PedidoComponent implements OnInit, OnDestroy {
         this.pedido = data;
         this.goToRoute();
         this.formulario.reset();
-        this.tipoAlert = 'success'
+        this.tipoAlert = 'info'
         this.mostrarAlert = true
         this.mostrarSpin = true
         this.message = "Pedido cadastrado com sucesso!";
