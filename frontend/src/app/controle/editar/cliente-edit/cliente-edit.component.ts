@@ -82,11 +82,15 @@ export class ClienteEditComponent implements OnInit {
             this.formulario.reset();
             this.mostrarAlert = true;
             this.tipoAlert = 'info';
+            if(data != null){
             this.message = 'Cliente editado com sucesso!';
             setTimeout(() => {
                 this.mostrarAlert = false;
                 this.router.navigate(['listar/cliente']); // Navega para a tela de listar após ocultar o spinner
             }, 2000); // Tempo para mostrar o spinner (2 segundos)
+          }else{
+              this.message = 'E-mail já existente!'
+            }
         },
         error: (err: any) => {
             this.mostrarAlert = true;

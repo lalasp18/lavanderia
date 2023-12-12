@@ -53,11 +53,15 @@ export class FuncionarioComponent implements OnInit {
             this.formulario.reset();
             this.mostrarAlert = true;
             this.tipoAlert = 'info';
+            if(data != null){
             this.message = 'Funcionário cadastrado com sucesso!';
             setTimeout(() => {
                 this.mostrarAlert = false;
                 this.router.navigate(['listar/funcionario']);
             }, 5000);
+          }else {
+            this.message = 'E-mail já existente!'
+          }
         },
         error: (err: any) => {
             this.mostrarAlert = true;

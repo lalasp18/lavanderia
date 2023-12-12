@@ -21,6 +21,10 @@ public class FuncionarioService {
     }
 
     public Funcionario criarFuncionario(Funcionario funcionarioEntra) {
+        String emailParam = funcionarioEntra.getEmail();
+        if(funcionarioRepository.findIfEmailExists(emailParam)){
+            return null;
+        }
         return funcionarioRepository.save(funcionarioEntra);
     }
 
@@ -33,7 +37,10 @@ public class FuncionarioService {
         editado.setEmail(funcionario.getEmail());
         editado.setCargo(funcionario.getCargo());
         editado.setSenha(funcionario.getSenha());
-
+        String emailParam = editado.getEmail();
+        if(funcionarioRepository.findIfEmailExists(emailParam)){
+            return null;
+        }
         return funcionarioRepository.save(editado);
     }
 

@@ -68,12 +68,16 @@ export class ClienteComponent implements OnInit {
             this.mostrarAlert = true;
             this.mostrarSpin = true; // Adiciona a variável de controle para mostrar o spinner
             this.tipoAlert = 'info';
+            if(data != null){
             this.message = 'Cliente cadastrado com sucesso!';
             setTimeout(() => {
                 this.mostrarAlert = false;
                 this.mostrarSpin = false; // Esconde o spinner após um período (pode ajustar conforme necessário)
                 this.router.navigate(['listar/cliente']); // Navega para a tela de listar após ocultar o spinner
             }, 2000); // Tempo para mostrar o spinner (2 segundos)
+          } else{
+            this.message = 'E-mail já existente!'
+          }
         },
         error: (err: any) => {
             this.mostrarAlert = true;

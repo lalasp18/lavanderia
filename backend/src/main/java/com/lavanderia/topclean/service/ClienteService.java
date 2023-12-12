@@ -20,6 +20,10 @@ public class ClienteService {
     }
 
     public Cliente criarCliente(Cliente cliente) {
+        String emailParam = cliente.getEmail();
+        if(clienteRepository.findIfEmailExists(emailParam)){
+            return null;
+        }
         return clienteRepository.save(cliente);
     }
 
@@ -33,7 +37,10 @@ public class ClienteService {
         editado.setNumero(cliente.getNumero());
         editado.setEmail(cliente.getEmail());
         editado.setTelefone(cliente.getTelefone());
-
+        String emailParam = editado.getEmail();
+        if(clienteRepository.findIfEmailExists(emailParam)){
+            return null;
+        }
         return clienteRepository.save(editado);
     }
 
