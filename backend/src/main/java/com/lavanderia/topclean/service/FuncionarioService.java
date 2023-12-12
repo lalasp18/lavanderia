@@ -14,13 +14,13 @@ import com.lavanderia.topclean.repository.FuncionarioRepository;
 public class FuncionarioService {
 
     @Autowired
-    private FuncionarioRepository funcionarioRepository;
+    private final FuncionarioRepository funcionarioRepository;
+
+    public FuncionarioService(FuncionarioRepository funcionarioRepository) {
+        this.funcionarioRepository = funcionarioRepository;
+    }
 
     public Funcionario criarFuncionario(Funcionario funcionarioEntra) {
-        String emailParam = funcionarioEntra.getEmail();
-        if(funcionarioRepository.findIfEmailExists(emailParam)){
-            return null;
-        }
         return funcionarioRepository.save(funcionarioEntra);
     }
 

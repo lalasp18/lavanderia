@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.management.relation.RelationTypeNotFoundException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lavanderia.topclean.models.Cliente;
@@ -11,7 +12,7 @@ import com.lavanderia.topclean.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
-
+    @Autowired
     private ClienteRepository clienteRepository;
 
     public ClienteService(ClienteRepository clienteRepository) {

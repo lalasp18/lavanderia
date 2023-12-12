@@ -15,7 +15,7 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">{{item0.cliente.nome}}</li>
                   <li class="list-group-item d-flex justify-content-between">
-                    {{item0.dtPedido}}
+                    {{item0.dtPedido | date: 'dd/MM/yyyy'}}
                     <button type="button" class="btn btn-outline-warning" (click)="paraAndamento(item0)">
                         <i class="bi bi-arrow-right-circle-fill"></i>
                     </button>
@@ -32,7 +32,7 @@
                     <button type="button" class="btn btn-outline-warning" (click)="voltaIniciar(item1)">
                         <i class="bi bi-arrow-left-circle-fill"></i>
                     </button>
-                    {{item1.dtPedido}}
+                    {{item1.dtPedido | date: 'dd/MM/yyyy'}}
                     <button type="button" class="btn btn-outline-warning" (click)="paraConcluir(item1)">
                         <i class="bi bi-arrow-right-circle-fill"></i>
                     </button>
@@ -49,7 +49,7 @@
                     <button type="button" class="btn btn-outline-warning" (click)="paraAndamento(item2)">
                         <i class="bi bi-arrow-left-circle-fill"></i>
                     </button>
-                    {{item2.dtPedido}}
+                    {{item2.dtPedido | date: 'dd/MM/yyyy'}}
                 </li>
                 </ul>
             </div>
