@@ -83,29 +83,32 @@ export class MaquinaEditComponent implements OnInit {
       });
     }
 
-  enviarForm() {
-    this.maquinaService.editarMaquina(this.maquina).subscribe({
-      next: (data: any) => {
-        this.maquina = data;
-        this.goToRoute();
-        this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = "info";
-        this.message = "Máquina editada com sucesso!";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = "danger";
-        this.message = "Erro! Máquina não foi salva.";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      }
-    });
+    enviarForm() {
+      const maquinaEditada: Maquina = this.formulario.value;
+  
+      this.maquinaService.editarMaquina(this.maquina).subscribe({
+          next: (data: any) => {
+              this.maquina = data;
+              this.formulario.reset();
+              this.mostrarAlert = true;
+              this.tipoAlert = 'info';
+              this.message = 'Máquina editada com sucesso!';
+              setTimeout(() => {
+                  this.mostrarAlert = false;
+                  this.router.navigate(['listar/maquina']); // Navega para a tela de listar após ocultar o spinner
+              }, 2000); // Tempo para mostrar o spinner (2 segundos)
+          },
+          error: (err: any) => {
+              this.mostrarAlert = true;
+              this.tipoAlert = 'danger';
+              this.message = 'Edição não concluída.';
+              setTimeout(() => {
+                  this.mostrarAlert = false;
+              }, 5000);
+          },
+      });
   }
+  
 
   goToRoute() {
     this.router.navigate(["api/maquina/editar"]);

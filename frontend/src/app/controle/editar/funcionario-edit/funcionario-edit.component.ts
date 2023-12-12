@@ -93,28 +93,30 @@ export class FuncionarioEditComponent implements OnInit, OnDestroy {
   }
 
   enviarForm() {
+    const funcionarioEditado: Funcionario = this.formulario.value;
+
     this.funcionarioService.editarFuncionario(this.funcionario).subscribe({
-      next: (data: any) => {
-        this.funcionario = data;
-        this.goToRoute();
-        this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = "info";
-        this.message = "Funcionário editado com sucesso!";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = "danger";
-        this.message = "Erro! Funcionário não foi salvo.";
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      }
+        next: (data: any) => {
+            this.funcionario = data;
+            this.formulario.reset();
+            this.mostrarAlert = true;
+            this.tipoAlert = 'info';
+            this.message = 'Funcionário editado com sucesso!';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+                this.router.navigate(['listar/funcionario']); // Navega para a tela de listar após ocultar o spinner
+            }, 2000); // Tempo para mostrar o spinner (2 segundos)
+        },
+        error: (err: any) => {
+            this.mostrarAlert = true;
+            this.tipoAlert = 'danger';
+            this.message = 'Edição não concluída.';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+            }, 5000);
+        },
     });
-  }
+}
 
   goToRoute() {
     this.router.navigate(["api/funcionario/editar"]);

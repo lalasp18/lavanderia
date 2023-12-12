@@ -34,13 +34,7 @@ export class FuncionarioComponent implements OnInit {
           Validators.maxLength(150),
         ],
       ],
-      email: [
-        null,
-        [
-          Validators.required,
-          Validators.email,
-        ],
-      ],
+      email: [null, [Validators.required, Validators.email]],
       cargo: [null, [Validators.required]],
       senha: [null, [Validators.required, Validators.minLength(6)]],
     });
@@ -51,29 +45,31 @@ export class FuncionarioComponent implements OnInit {
 
   ngOnInit() { }
 
-  enviarForm() {
+ enviarForm() {
+    const novoFuncionario: Funcionario = this.formulario.value;
     this.funcionarioService.salvarFuncionario(this.funcionario).subscribe({
-      next: (data: any) => {
-        this.funcionario = data;
-        this.goToRoute();
-        this.formulario.reset();
-        this.mostrarAlert = true;
-        this.tipoAlert = 'info';
-        this.message = 'Funcionário cadastrado com sucesso!';
-        setTimeout(() => {
-          this.router.navigate(['listar/funcionarios']);
-        }, 5000);
-      },
-      error: (err: any) => {
-        this.mostrarAlert = true;
-        this.tipoAlert = 'danger';
-        this.message = 'Cadastro não enviado.';
-        setTimeout(() => {
-          this.mostrarAlert = false;
-        }, 5000);
-      },
+        next: (data: any) => {
+            this.funcionario = data;
+            this.formulario.reset();
+            this.mostrarAlert = true;
+            this.tipoAlert = 'info';
+            this.message = 'Funcionário cadastrado com sucesso!';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+                this.router.navigate(['listar/funcionario']);
+            }, 5000);
+        },
+        error: (err: any) => {
+            this.mostrarAlert = true;
+            this.tipoAlert = 'danger';
+            this.message = 'Cadastro não enviado.';
+            setTimeout(() => {
+                this.mostrarAlert = false;
+            }, 5000);
+        },
     });
-  }
+}
+
 
   goToRoute() {
     this.router.navigate(['api/funcionario/criar']);
